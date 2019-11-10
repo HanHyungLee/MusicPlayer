@@ -9,21 +9,27 @@
 /* Begin PBXBuildFile section */
 		F1EF067223779D0800345F38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EF067123779D0800345F38 /* AppDelegate.swift */; };
 		F1EF067423779D0800345F38 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EF067323779D0800345F38 /* SceneDelegate.swift */; };
-		F1EF067623779D0800345F38 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EF067523779D0800345F38 /* ViewController.swift */; };
 		F1EF067923779D0800345F38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1EF067723779D0800345F38 /* Main.storyboard */; };
 		F1EF067B23779D0900345F38 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1EF067A23779D0900345F38 /* Assets.xcassets */; };
 		F1EF067E23779D0900345F38 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1EF067C23779D0900345F38 /* LaunchScreen.storyboard */; };
+		F1FE303C23779E7900F6EA35 /* MusicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FE303B23779E7900F6EA35 /* MusicListViewController.swift */; };
+		F1FE30412377A50400F6EA35 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FE30402377A50400F6EA35 /* Album.swift */; };
+		F1FE30432377A6FA00F6EA35 /* SongQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FE30422377A6FA00F6EA35 /* SongQuery.swift */; };
+		F1FE304C2377E5FE00F6EA35 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FE304B2377E5FE00F6EA35 /* UIViewControllerExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F1EF066E23779D0800345F38 /* MusicPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1EF067123779D0800345F38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1EF067323779D0800345F38 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F1EF067523779D0800345F38 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F1EF067823779D0800345F38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F1EF067A23779D0900345F38 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F1EF067D23779D0900345F38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F1EF067F23779D0900345F38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F1FE303B23779E7900F6EA35 /* MusicListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicListViewController.swift; sourceTree = "<group>"; };
+		F1FE30402377A50400F6EA35 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
+		F1FE30422377A6FA00F6EA35 /* SongQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongQuery.swift; sourceTree = "<group>"; };
+		F1FE304B2377E5FE00F6EA35 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +62,58 @@
 		F1EF067023779D0800345F38 /* MusicPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				F1FE303D2377A4C000F6EA35 /* Common */,
+				F1FE303A23779E4B00F6EA35 /* ViewControllers */,
 				F1EF067123779D0800345F38 /* AppDelegate.swift */,
 				F1EF067323779D0800345F38 /* SceneDelegate.swift */,
-				F1EF067523779D0800345F38 /* ViewController.swift */,
 				F1EF067723779D0800345F38 /* Main.storyboard */,
 				F1EF067A23779D0900345F38 /* Assets.xcassets */,
 				F1EF067C23779D0900345F38 /* LaunchScreen.storyboard */,
 				F1EF067F23779D0900345F38 /* Info.plist */,
 			);
 			path = MusicPlayer;
+			sourceTree = "<group>";
+		};
+		F1FE303A23779E4B00F6EA35 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F1FE303B23779E7900F6EA35 /* MusicListViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		F1FE303D2377A4C000F6EA35 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				F1FE303E2377A4DA00F6EA35 /* Models */,
+				F1FE303F2377A4DA00F6EA35 /* Utils */,
+				F1FE304A2377E5E900F6EA35 /* Extension */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		F1FE303E2377A4DA00F6EA35 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F1FE30402377A50400F6EA35 /* Album.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F1FE303F2377A4DA00F6EA35 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				F1FE30422377A6FA00F6EA35 /* SongQuery.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		F1FE304A2377E5E900F6EA35 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				F1FE304B2377E5FE00F6EA35 /* UIViewControllerExtension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +187,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1EF067623779D0800345F38 /* ViewController.swift in Sources */,
 				F1EF067223779D0800345F38 /* AppDelegate.swift in Sources */,
 				F1EF067423779D0800345F38 /* SceneDelegate.swift in Sources */,
+				F1FE304C2377E5FE00F6EA35 /* UIViewControllerExtension.swift in Sources */,
+				F1FE30432377A6FA00F6EA35 /* SongQuery.swift in Sources */,
+				F1FE303C23779E7900F6EA35 /* MusicListViewController.swift in Sources */,
+				F1FE30412377A50400F6EA35 /* Album.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
