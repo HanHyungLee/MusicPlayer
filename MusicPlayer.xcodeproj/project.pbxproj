@@ -16,6 +16,11 @@
 		F1FE30412377A50400F6EA35 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FE30402377A50400F6EA35 /* Album.swift */; };
 		F1FE30432377A6FA00F6EA35 /* SongQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FE30422377A6FA00F6EA35 /* SongQuery.swift */; };
 		F1FE304C2377E5FE00F6EA35 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FE304B2377E5FE00F6EA35 /* UIViewControllerExtension.swift */; };
+		F1FE304F2377ED0000F6EA35 /* AlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FE304E2377ED0000F6EA35 /* AlbumCollectionViewCell.swift */; };
+		F1FE305123782B2E00F6EA35 /* MusicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FE305023782B2E00F6EA35 /* MusicDetailViewController.swift */; };
+		F1FE30532378329400F6EA35 /* AlbumInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FE30522378329400F6EA35 /* AlbumInfoTableViewCell.swift */; };
+		F1FE3055237832B500F6EA35 /* AlbumControlTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FE3054237832B500F6EA35 /* AlbumControlTableViewCell.swift */; };
+		F1FE3057237832CB00F6EA35 /* AlbumMusicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FE3056237832CB00F6EA35 /* AlbumMusicTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +35,11 @@
 		F1FE30402377A50400F6EA35 /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		F1FE30422377A6FA00F6EA35 /* SongQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongQuery.swift; sourceTree = "<group>"; };
 		F1FE304B2377E5FE00F6EA35 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		F1FE304E2377ED0000F6EA35 /* AlbumCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewCell.swift; sourceTree = "<group>"; };
+		F1FE305023782B2E00F6EA35 /* MusicDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicDetailViewController.swift; sourceTree = "<group>"; };
+		F1FE30522378329400F6EA35 /* AlbumInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumInfoTableViewCell.swift; sourceTree = "<group>"; };
+		F1FE3054237832B500F6EA35 /* AlbumControlTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumControlTableViewCell.swift; sourceTree = "<group>"; };
+		F1FE3056237832CB00F6EA35 /* AlbumMusicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumMusicTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +87,9 @@
 		F1FE303A23779E4B00F6EA35 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				F1FE304D2377EC2800F6EA35 /* Cells */,
 				F1FE303B23779E7900F6EA35 /* MusicListViewController.swift */,
+				F1FE305023782B2E00F6EA35 /* MusicDetailViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -114,6 +126,17 @@
 				F1FE304B2377E5FE00F6EA35 /* UIViewControllerExtension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		F1FE304D2377EC2800F6EA35 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F1FE304E2377ED0000F6EA35 /* AlbumCollectionViewCell.swift */,
+				F1FE30522378329400F6EA35 /* AlbumInfoTableViewCell.swift */,
+				F1FE3054237832B500F6EA35 /* AlbumControlTableViewCell.swift */,
+				F1FE3056237832CB00F6EA35 /* AlbumMusicTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -188,11 +211,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1EF067223779D0800345F38 /* AppDelegate.swift in Sources */,
+				F1FE3055237832B500F6EA35 /* AlbumControlTableViewCell.swift in Sources */,
 				F1EF067423779D0800345F38 /* SceneDelegate.swift in Sources */,
 				F1FE304C2377E5FE00F6EA35 /* UIViewControllerExtension.swift in Sources */,
 				F1FE30432377A6FA00F6EA35 /* SongQuery.swift in Sources */,
 				F1FE303C23779E7900F6EA35 /* MusicListViewController.swift in Sources */,
+				F1FE30532378329400F6EA35 /* AlbumInfoTableViewCell.swift in Sources */,
+				F1FE305123782B2E00F6EA35 /* MusicDetailViewController.swift in Sources */,
 				F1FE30412377A50400F6EA35 /* Album.swift in Sources */,
+				F1FE3057237832CB00F6EA35 /* AlbumMusicTableViewCell.swift in Sources */,
+				F1FE304F2377ED0000F6EA35 /* AlbumCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

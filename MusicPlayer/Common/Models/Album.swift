@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol SongProtocol {
     var songId: NSNumber { get set }
@@ -26,6 +27,8 @@ struct Song: SongProtocol {
 
 struct Album {
     var albumTitle: String
+    var artistName: String
     var songs: [SongProtocol]
+    var artwork: UIImage? = nil
 }
 

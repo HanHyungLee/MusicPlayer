@@ -34,13 +34,15 @@ class SongQuery {
             var songs: [SongProtocol] = []
 
             var albumTitle: String = ""
+            let artist: String = album.representativeItem?.artist ?? ""
+            let artwork: UIImage? = album.representativeItem?.artwork?.image(at: CGSize(width: 300, height: 300))
             
             for song in albumItems {
                 switch category {
                 case .artist:
-                    albumTitle = song.value( forProperty: MPMediaItemPropertyArtist ) as! String
+                    albumTitle = song.value(forProperty: MPMediaItemPropertyArtist) as! String
                 case .album:
-                    albumTitle = song.value( forProperty: MPMediaItemPropertyAlbumTitle ) as! String
+                    albumTitle = song.value(forProperty: MPMediaItemPropertyAlbumTitle) as! String
                 }
                 
                 guard let songId: NSNumber = song.value(forProperty: MPMediaItemPropertyPersistentID) as? NSNumber,
@@ -60,7 +62,10 @@ class SongQuery {
                 songs.append(song)
             }
             
-            let album = Album(albumTitle: albumTitle, songs: songs)
+            let album = Album(albumTitle: albumTitle,
+                              artistName: artist,
+                              songs: songs,
+                              artwork: artwork)
             
             albums.append(album)
         }

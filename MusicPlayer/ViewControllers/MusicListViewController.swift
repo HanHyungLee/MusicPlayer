@@ -18,14 +18,16 @@ extension MusicListViewController {
 
 final class MusicListViewController: UIViewController {
     
-    @IBOutlet weak var listTableView: UITableView!
+    @IBOutlet weak var listCollectionView: UICollectionView!
     
-    var albums: [Album] = [] {
+    private var albums: [Album] = [] {
         didSet {
-            self.listTableView.reloadData()
+            self.listCollectionView.reloadData()
         }
     }
-    var songQuery = SongQuery()
+    private var songQuery = SongQuery()
+    
+    private let cellPadding: CGFloat = 20.0
     
     
     // MARK: - View lifecycle
@@ -67,6 +69,7 @@ final class MusicListViewController: UIViewController {
         case .authorized:
             let albums = self.songQuery.get(category: .album)
             print("albums = \(albums)")
+            self.albums = albums
         case .denied, .restricted:
             throw MediaError.error(status)
         case .notDetermined:
@@ -84,6 +87,7 @@ final class MusicListViewController: UIViewController {
             case .authorized:
                 let albums = self.songQuery.get(category: .album)
                 print("albums = \(albums)")
+                self.albums = albums
             case .denied, .restricted, .notDetermined:
                 throw MediaError.error(status)
             @unknown default:
@@ -93,33 +97,49 @@ final class MusicListViewController: UIViewController {
             throw MediaError.unknownError
         }
     }
-
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if let musicDetailVC = segue.destination as? MusicDetailViewController,
+            let album: Album = sender as? Album {
+            musicDetailVC.album = album
+        }
     }
-    */
-
 }
 
-// MARK: - UITableViewDataSource
-extension MusicListViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+// MARK: - UICollectionViewDataSource
+extension MusicListViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.albums.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AlbumCollectionViewCell", for: indexPath) as! AlbumCollectionViewCell
+        let album: Album = self.albums[indexPath.row]
+        cell.initCell(album)
+        cell.layer.borderColor = UIColor.white.cgColor
+        cell.layer.borderWidth = 1.0
+        return cell
     }
-    
-    
 }
 
-// MARK: - UITableViewDelegate
-extension MusicListViewController: UITableViewDelegate {
-    
+// MARK: - UICollectionViewDelegate
+extension MusicListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("indexPath = \(indexPath)")
+        
+        let album: Album = self.albums[indexPath.row]
+        self.performSegue(withIdentifier: "showAlbum", sender: album)
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension MusicListViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width: CGFloat = (collectionView.frame.size.width - cellPadding * 3.0) / 2.0
+        let height: CGFloat = width + AlbumCollectionViewCell.labelSize
+        return CGSize(width: width, height: height)
+    }
 }
