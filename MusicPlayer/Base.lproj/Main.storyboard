@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Vud-F7-V93">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aM1-Ch-pcZ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
@@ -8,6 +8,47 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--View Controller-->
+        <scene sceneID="GtL-Lc-0om">
+            <objects>
+                <viewController id="aM1-Ch-pcZ" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sil-T2-iGi">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ueo-wA-uWj">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <connections>
+                                    <segue destination="Vud-F7-V93" kind="embed" id="AP6-M8-5Uq"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mUl-I0-Co2">
+                                <rect key="frame" x="0.0" y="780" width="414" height="82"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="82" id="6x8-UM-pdX"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="V0k-zw-G8n" kind="embed" id="JJw-Zf-Qtm"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="mUl-I0-Co2" firstAttribute="leading" secondItem="Hsm-d3-tpm" secondAttribute="leading" id="Dre-9m-MpN"/>
+                            <constraint firstItem="Ueo-wA-uWj" firstAttribute="top" secondItem="sil-T2-iGi" secondAttribute="top" id="W3o-ve-Vha"/>
+                            <constraint firstAttribute="bottom" secondItem="Ueo-wA-uWj" secondAttribute="bottom" id="Zpx-Lz-ngd"/>
+                            <constraint firstItem="Hsm-d3-tpm" firstAttribute="trailing" secondItem="mUl-I0-Co2" secondAttribute="trailing" id="e3R-hc-yuk"/>
+                            <constraint firstAttribute="trailing" secondItem="Ueo-wA-uWj" secondAttribute="trailing" id="kBd-VT-8NY"/>
+                            <constraint firstItem="Hsm-d3-tpm" firstAttribute="bottom" secondItem="mUl-I0-Co2" secondAttribute="bottom" id="tU2-hN-e71"/>
+                            <constraint firstItem="Ueo-wA-uWj" firstAttribute="leading" secondItem="sil-T2-iGi" secondAttribute="leading" id="wdz-f8-VOz"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Hsm-d3-tpm"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ftV-fk-tSP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-594" y="138"/>
+        </scene>
         <!--Music List View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -272,12 +313,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="YOq-0h-gzv"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="l8h-e0-P4H"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="giG-uo-yLJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
+            <point key="canvasLocation" x="275" y="138"/>
         </scene>
         <!--Music Control View Controller-->
         <scene sceneID="zat-cN-Pfd">
@@ -348,7 +389,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FkH-Qa-DCf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138" y="704"/>
+            <point key="canvasLocation" x="-596" y="615"/>
         </scene>
     </scenes>
     <resources>
