@@ -23,6 +23,11 @@ struct Song: SongProtocol {
     var title: String
     var artistName: String
     var songTitle: String
+    
+    static func ==(lhs: Song, rhs: Song) -> Bool {
+        return lhs.songId == rhs.songId &&
+            lhs.albumTitle == rhs.albumTitle
+    }
 }
 
 struct Album {

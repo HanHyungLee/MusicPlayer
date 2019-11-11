@@ -103,6 +103,7 @@ extension MusicDetailViewController: UITableViewDataSource {
             return cell
         case .control:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AlbumControlTableViewCell", for: indexPath) as! AlbumControlTableViewCell
+            cell.delegate = self
             return cell
         case .musicList(let songs):
             let cell = tableView.dequeueReusableCell(withIdentifier: "AlbumMusicTableViewCell", for: indexPath) as! AlbumMusicTableViewCell
@@ -124,5 +125,15 @@ extension MusicDetailViewController: UITableViewDelegate {
         default:
             return UITableView.automaticDimension
         }
+    }
+}
+
+extension MusicDetailViewController: AlbumControlTableViewCellDelegate {
+    func tapPlay() {
+        print("재생")
+    }
+    
+    func tapShuffle() {
+        print("랜덤 재생")
     }
 }

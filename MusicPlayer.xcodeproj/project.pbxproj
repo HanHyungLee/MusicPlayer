@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F1CD667323798DEC00C64687 /* MusicControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD667223798DEC00C64687 /* MusicControlViewController.swift */; };
+		F1CD66752379911E00C64687 /* MusicNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD66742379911E00C64687 /* MusicNavigationViewController.swift */; };
 		F1EF067223779D0800345F38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EF067123779D0800345F38 /* AppDelegate.swift */; };
 		F1EF067423779D0800345F38 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EF067323779D0800345F38 /* SceneDelegate.swift */; };
 		F1EF067923779D0800345F38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1EF067723779D0800345F38 /* Main.storyboard */; };
@@ -24,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F1CD667223798DEC00C64687 /* MusicControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicControlViewController.swift; sourceTree = "<group>"; };
+		F1CD66742379911E00C64687 /* MusicNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicNavigationViewController.swift; sourceTree = "<group>"; };
 		F1EF066E23779D0800345F38 /* MusicPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1EF067123779D0800345F38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1EF067323779D0800345F38 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,8 +92,10 @@
 			isa = PBXGroup;
 			children = (
 				F1FE304D2377EC2800F6EA35 /* Cells */,
+				F1CD66742379911E00C64687 /* MusicNavigationViewController.swift */,
 				F1FE303B23779E7900F6EA35 /* MusicListViewController.swift */,
 				F1FE305023782B2E00F6EA35 /* MusicDetailViewController.swift */,
+				F1CD667223798DEC00C64687 /* MusicControlViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -210,6 +216,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1CD66752379911E00C64687 /* MusicNavigationViewController.swift in Sources */,
+				F1CD667323798DEC00C64687 /* MusicControlViewController.swift in Sources */,
 				F1EF067223779D0800345F38 /* AppDelegate.swift in Sources */,
 				F1FE3055237832B500F6EA35 /* AlbumControlTableViewCell.swift in Sources */,
 				F1EF067423779D0800345F38 /* SceneDelegate.swift in Sources */,
