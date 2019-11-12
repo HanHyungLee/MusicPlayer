@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MusicNavigationViewController: UINavigationController {
+final class MusicNavigationViewController: UINavigationController {
     
     var controlVC: MusicControlViewController?
     
@@ -38,4 +38,3 @@ class MusicNavigationViewController: UINavigationController {
     */
 
 }
-

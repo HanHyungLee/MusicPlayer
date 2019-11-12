@@ -126,6 +126,18 @@ extension MusicDetailViewController: UITableViewDelegate {
             return UITableView.automaticDimension
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let section = self.sections[indexPath.section]
+        switch section {
+        case .musicList(let songs):
+            let song = songs[indexPath.row]
+            NotificationCenter.default.post(name: .PlaySong, object: nil, userInfo: ["song": song])
+            
+        default:
+            break
+        }
+    }
 }
 
 extension MusicDetailViewController: AlbumControlTableViewCellDelegate {

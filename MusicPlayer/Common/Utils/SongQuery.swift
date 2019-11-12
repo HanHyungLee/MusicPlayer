@@ -15,6 +15,7 @@ enum SongCategory {
 }
 
 class SongQuery {
+    /// 모든 음악 쿼리
     func get(category: SongCategory) -> [Album] {
         var albums = [Album]()
         let albumsQuery: MPMediaQuery
@@ -71,5 +72,17 @@ class SongQuery {
         }
         
         return albums
+    }
+    
+    /// MPMediaItem 찾기
+    static func getItem(songId: NSNumber) -> MPMediaItem {
+        let property: MPMediaPropertyPredicate = MPMediaPropertyPredicate(value: songId, forProperty: MPMediaItemPropertyPersistentID)
+        
+        let query: MPMediaQuery = MPMediaQuery()
+        query.addFilterPredicate(property)
+        
+        let items: [MPMediaItem] = query.items! as [MPMediaItem]
+        
+        return items[items.count - 1]
     }
 }

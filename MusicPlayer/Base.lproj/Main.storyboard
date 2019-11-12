@@ -341,6 +341,9 @@
                                             <constraint firstAttribute="height" constant="40" id="kvI-2g-iJc"/>
                                         </constraints>
                                         <state key="normal" image="MPPlay"/>
+                                        <connections>
+                                            <action selector="onPlayButton:" destination="V0k-zw-G8n" eventType="touchUpInside" id="vka-AN-Ga2"/>
+                                        </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="VJk-79-FIj">
                                         <rect key="frame" x="50" y="0.0" width="274" height="40"/>
@@ -386,6 +389,12 @@
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="414" height="82"/>
+                    <connections>
+                        <outlet property="artistLabel" destination="ZqU-fe-r8g" id="KJM-Ae-gLz"/>
+                        <outlet property="coverImageView" destination="Uab-OE-JBx" id="bU5-F8-9BF"/>
+                        <outlet property="playButton" destination="yFj-5l-OnD" id="1ui-8p-yP9"/>
+                        <outlet property="titleLabel" destination="tA0-wM-kgh" id="DTr-0H-wrZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FkH-Qa-DCf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
