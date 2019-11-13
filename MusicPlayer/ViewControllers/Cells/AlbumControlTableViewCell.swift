@@ -24,7 +24,9 @@ final class AlbumControlTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        self.playButton.layer.cornerRadius = buttonCornerRadius
+        self.shuffleButton.layer.cornerRadius = buttonCornerRadius
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

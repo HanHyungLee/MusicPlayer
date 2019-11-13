@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Main Container View Controller-->
         <scene sceneID="GtL-Lc-0om">
             <objects>
-                <viewController id="aM1-Ch-pcZ" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainContainerViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aM1-Ch-pcZ" customClass="MainContainerViewController" customModule="MusicPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sil-T2-iGi">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -172,7 +172,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n35-pv-ZXi">
-                                                    <rect key="frame" x="180" y="52" width="44" height="21.5"/>
+                                                    <rect key="frame" x="180" y="48" width="44" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -181,7 +181,7 @@
                                             <constraints>
                                                 <constraint firstItem="gax-Q6-i6y" firstAttribute="top" secondItem="ysE-Fc-GGw" secondAttribute="top" constant="20" id="1EB-8q-PIA"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="PHg-vc-HCG" secondAttribute="trailing" constant="20" id="5Ct-ex-oyS"/>
-                                                <constraint firstItem="n35-pv-ZXi" firstAttribute="top" secondItem="PHg-vc-HCG" secondAttribute="bottom" constant="8" id="IFD-eL-aJ4"/>
+                                                <constraint firstItem="n35-pv-ZXi" firstAttribute="top" secondItem="PHg-vc-HCG" secondAttribute="bottom" constant="4" id="IFD-eL-aJ4"/>
                                                 <constraint firstItem="PHg-vc-HCG" firstAttribute="leading" secondItem="gax-Q6-i6y" secondAttribute="trailing" constant="20" id="JaK-aG-m3f"/>
                                                 <constraint firstItem="gax-Q6-i6y" firstAttribute="leading" secondItem="ysE-Fc-GGw" secondAttribute="leading" constant="20" id="Le2-vn-mVh"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="n35-pv-ZXi" secondAttribute="trailing" constant="20" id="R0f-DO-rIl"/>
@@ -205,10 +205,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="nKA-9d-vMs">
-                                                    <rect key="frame" x="15" y="15" width="384" height="50"/>
+                                                    <rect key="frame" x="20" y="15" width="374" height="50"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rpg-2L-E4C">
-                                                            <rect key="frame" x="0.0" y="0.0" width="182" height="50"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="177" height="50"/>
+                                                            <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="Y6d-ee-UB8"/>
                                                             </constraints>
@@ -218,7 +219,8 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xBX-ci-uhE">
-                                                            <rect key="frame" x="202" y="0.0" width="182" height="50"/>
+                                                            <rect key="frame" x="197" y="0.0" width="177" height="50"/>
+                                                            <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="yqE-2B-1nl"/>
                                                             </constraints>
@@ -231,9 +233,9 @@
                                                 </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="nKA-9d-vMs" firstAttribute="leading" secondItem="HQV-hk-54U" secondAttribute="leading" constant="15" id="2PI-lc-b3E"/>
+                                                <constraint firstItem="nKA-9d-vMs" firstAttribute="leading" secondItem="HQV-hk-54U" secondAttribute="leading" constant="20" id="2PI-lc-b3E"/>
                                                 <constraint firstAttribute="bottom" secondItem="nKA-9d-vMs" secondAttribute="bottom" constant="15" id="ITW-Dg-pNO"/>
-                                                <constraint firstAttribute="trailing" secondItem="nKA-9d-vMs" secondAttribute="trailing" constant="15" id="Owc-ik-RBC"/>
+                                                <constraint firstAttribute="trailing" secondItem="nKA-9d-vMs" secondAttribute="trailing" constant="20" id="Owc-ik-RBC"/>
                                                 <constraint firstItem="nKA-9d-vMs" firstAttribute="top" secondItem="HQV-hk-54U" secondAttribute="top" constant="15" id="gdr-85-Ru3"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -320,10 +322,10 @@
             </objects>
             <point key="canvasLocation" x="275" y="138"/>
         </scene>
-        <!--Music Control View Controller-->
+        <!--Music Mini Control View Controller-->
         <scene sceneID="zat-cN-Pfd">
             <objects>
-                <viewController storyboardIdentifier="MusicControlViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="V0k-zw-G8n" customClass="MusicControlViewController" customModule="MusicPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MusicMiniControlViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="V0k-zw-G8n" customClass="MusicMiniControlViewController" customModule="MusicPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="COr-Wu-M1i">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="82"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -376,6 +378,7 @@
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="aYB-2c-vlq" firstAttribute="leading" secondItem="COr-Wu-M1i" secondAttribute="leading" id="5UN-Ee-iTI"/>
                             <constraint firstItem="roa-H6-yMf" firstAttribute="top" secondItem="aYB-2c-vlq" secondAttribute="bottom" constant="20" id="BLk-4v-YKq"/>
@@ -386,6 +389,9 @@
                             <constraint firstItem="aYB-2c-vlq" firstAttribute="top" secondItem="COr-Wu-M1i" secondAttribute="top" id="vVa-Dm-RS6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="i3F-Eg-m64"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="lPd-Xo-e1B" appends="YES" id="Kt4-r5-soq"/>
+                        </connections>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="414" height="82"/>
@@ -397,8 +403,28 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FkH-Qa-DCf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="lPd-Xo-e1B">
+                    <connections>
+                        <action selector="tapGesture:" destination="V0k-zw-G8n" id="B0x-Dn-mIp"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-596" y="615"/>
+        </scene>
+        <!--Music Control View Controller-->
+        <scene sceneID="nrP-6W-ur5">
+            <objects>
+                <viewController storyboardIdentifier="MusicControlViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="t9k-UL-dJR" customClass="MusicControlViewController" customModule="MusicPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="t2Q-Am-a8Y">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="l0e-RS-1J2"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pex-7x-eCl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="275" y="888"/>
         </scene>
     </scenes>
     <resources>
