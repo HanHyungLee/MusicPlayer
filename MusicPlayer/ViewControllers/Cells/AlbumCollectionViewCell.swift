@@ -13,12 +13,13 @@ final class AlbumCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var albumTitleLabel: UILabel!
     @IBOutlet weak var artistLabel: UILabel!
     
-    static let labelSize: CGFloat = 66.0
+    static let labelSize: CGFloat = 54.0
     
     // MARK: - View lifecycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.coverImageView.layer.cornerRadius = coverImageCornerRadius
     }
     
     func initCell(_ album: Album) {

@@ -9,11 +9,20 @@
 import UIKit
 import MediaPlayer
 
-extension Notification.Name {
-    static let PlaySong = Notification.Name("playSong")
+protocol MusicPlayerProtocol {
+    func play()
+    func pause()
+    func backward()
+    func forward()
 }
 
-final class MusicControlViewController: UIViewController, SongSubscriber {
+extension Notification.Name {
+    static let playSong = Notification.Name("playSong")
+    static let playAlbumSequence = Notification.Name("playAlbumSequence")
+    static let shuffleAlbum = Notification.Name("shuffleAlbum")
+}
+
+final class MusicControlViewController: UIViewController, SongSubscriber, MusicPlayerProtocol {
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var artistLabel: UILabel!
@@ -34,20 +43,28 @@ final class MusicControlViewController: UIViewController, SongSubscriber {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.coverImageView.layer.cornerRadius = coverImageCornerRadius
+        
         if let item: MPMediaItem = self.musicPlayer.nowPlayingItem {
             self.setMusicControl(item)
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(playSong), name: .PlaySong, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(playSequence), name: .playAlbumSequence, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(playSong), name: .playSong, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(shffleSong), name: .shuffleAlbum, object: nil)
     }
     
     private func setMusicControl(_ item: MPMediaItem) {
         self.titleLabel.text = item.title
         self.artistLabel.text = item.artist
-        self.coverImageView.image = item.artwork?.image(at: self.coverImageView.bounds.size)
+        if let coverImage = item.artwork?.image(at: self.coverImageView.bounds.size) {
+            self.coverImageView.image = coverImage
+        }
+        else {
+            self.coverImageView.image = UIImage(named: "placeholder_artwork")
+        }
         self.setPlayButton(self.musicPlayer.playbackState == .playing)
     }
-    
     
     @objc private func playSong(_ notification: Notification) {
         print("notification.userInfo = \(String(describing: notification.userInfo))")
@@ -61,13 +78,35 @@ final class MusicControlViewController: UIViewController, SongSubscriber {
         }
     }
     
+    @objc private func playSequence(_ notification: Notification) {
+        if let songs: [SongProtocol] = notification.userInfo?["songs"] as? [SongProtocol] {
+            let items: [MPMediaItem] = songs.map { return SongQuery.getItem(songId: $0.songId) }
+            let collection = MPMediaItemCollection(items: items)
+            self.musicPlayer.setQueue(with: collection)
+            self.musicPlayer.shuffleMode = .off
+            self.musicPlayer.skipToBeginning()
+            let item = collection.items[self.musicPlayer.indexOfNowPlayingItem]
+            self.setMusicControl(item)
+            self.play()
+        }
+    }
+    
+    @objc private func shffleSong(_ notification: Notification) {
+        self.musicPlayer.shuffleMode = .albums
+        self.musicPlayer.skipToNextItem()
+        print("self.musicPlayer.indexOfNowPlayingItem = \(self.musicPlayer.indexOfNowPlayingItem)")
+        if let item = self.musicPlayer.nowPlayingItem {
+            self.setMusicControl(item)
+        }
+    }
+    
     private func setPlayButton(_ isPlaying: Bool) {
         if isPlaying {
-            self.musicPlayer.play()
+            self.play()
             self.playButton.setImage(#imageLiteral(resourceName: "MPPause"), for: .normal)
         }
         else {
-            self.musicPlayer.pause()
+            self.pause()
             self.playButton.setImage(#imageLiteral(resourceName: "MPPlay"), for: .normal)
         }
     }
@@ -86,6 +125,24 @@ final class MusicControlViewController: UIViewController, SongSubscriber {
     
     @IBAction func onPlayButton(_ sender: UIButton) {
         self.setPlayButton(self.musicPlayer.playbackState == .playing)
+    }
+    
+    // MARK: - MusicPlayerProtocol
+    
+    func play() {
+        self.musicPlayer.play()
+    }
+    
+    func pause() {
+        self.musicPlayer.pause()
+    }
+    
+    func backward() {
+        self.musicPlayer.beginSeekingBackward()
+    }
+    
+    func forward() {
+        self.musicPlayer.beginSeekingForward()
     }
 
 //    func setupRemoteTransportControls() {

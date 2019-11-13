@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F14F77B5237AE73100925316 /* SongSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14F77B4237AE73100925316 /* SongSubscriber.swift */; };
+		F1BB54AE237C2FF7009A5BF4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BB54AD237C2FF7009A5BF4 /* Constants.swift */; };
 		F1CD667323798DEC00C64687 /* MusicControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD667223798DEC00C64687 /* MusicControlViewController.swift */; };
 		F1CD66752379911E00C64687 /* MusicNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD66742379911E00C64687 /* MusicNavigationViewController.swift */; };
 		F1EF067223779D0800345F38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EF067123779D0800345F38 /* AppDelegate.swift */; };
@@ -28,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		F14F77B4237AE73100925316 /* SongSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongSubscriber.swift; sourceTree = "<group>"; };
+		F1BB54AD237C2FF7009A5BF4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F1CD667223798DEC00C64687 /* MusicControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicControlViewController.swift; sourceTree = "<group>"; };
 		F1CD66742379911E00C64687 /* MusicNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicNavigationViewController.swift; sourceTree = "<group>"; };
 		F1EF066E23779D0800345F38 /* MusicPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				F1FE30422377A6FA00F6EA35 /* SongQuery.swift */,
+				F1BB54AD237C2FF7009A5BF4 /* Constants.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 				F1EF067223779D0800345F38 /* AppDelegate.swift in Sources */,
 				F1FE3055237832B500F6EA35 /* AlbumControlTableViewCell.swift in Sources */,
 				F1EF067423779D0800345F38 /* SceneDelegate.swift in Sources */,
+				F1BB54AE237C2FF7009A5BF4 /* Constants.swift in Sources */,
 				F1FE304C2377E5FE00F6EA35 /* UIViewControllerExtension.swift in Sources */,
 				F1FE30432377A6FA00F6EA35 /* SongQuery.swift in Sources */,
 				F1FE303C23779E7900F6EA35 /* MusicListViewController.swift in Sources */,

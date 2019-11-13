@@ -132,8 +132,7 @@ extension MusicDetailViewController: UITableViewDelegate {
         switch section {
         case .musicList(let songs):
             let song = songs[indexPath.row]
-            NotificationCenter.default.post(name: .PlaySong, object: nil, userInfo: ["song": song])
-            
+            NotificationCenter.default.post(name: .playSong, object: nil, userInfo: ["song": song])
         default:
             break
         }
@@ -142,10 +141,14 @@ extension MusicDetailViewController: UITableViewDelegate {
 
 extension MusicDetailViewController: AlbumControlTableViewCellDelegate {
     func tapPlay() {
-        print("재생")
+        print("앨범 순차 재생")
+        let songs = self.album?.songs ?? []
+        let userInfo: [String: Any] = ["songs": songs]
+        NotificationCenter.default.post(name: .playAlbumSequence, object: nil, userInfo: userInfo)
     }
     
     func tapShuffle() {
-        print("랜덤 재생")
+        print("앨범 랜덤 재생")
+        NotificationCenter.default.post(name: .shuffleAlbum, object: nil, userInfo: nil)
     }
 }

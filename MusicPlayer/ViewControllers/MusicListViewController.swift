@@ -119,8 +119,6 @@ extension MusicListViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AlbumCollectionViewCell", for: indexPath) as! AlbumCollectionViewCell
         let album: Album = self.albums[indexPath.row]
         cell.initCell(album)
-        cell.layer.borderColor = UIColor.white.cgColor
-        cell.layer.borderWidth = 1.0
         return cell
     }
 }

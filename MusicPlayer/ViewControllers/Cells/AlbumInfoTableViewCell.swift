@@ -34,6 +34,7 @@ final class AlbumInfoTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        self.coverImageView.layer.cornerRadius = coverImageCornerRadius
         self.coverImageView.image = nil
         self.albumTitleLabel.text = nil
         self.artistLabel.text = nil
