@@ -26,7 +26,7 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
         
     }
     
-    func pause() {
+    func stop() {
         
     }
     

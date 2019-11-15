@@ -11,7 +11,7 @@ import MediaPlayer
 
 protocol MusicPlayerProtocol {
     func play()
-    func pause()
+    func stop()
     func backward()
     func forward()
 }
@@ -21,16 +21,19 @@ protocol MusicMiniControlViewControllerDelegate: NSObjectProtocol {
 }
 
 final class MusicMiniControlViewController: UIViewController, SongSubscriber, MusicPlayerProtocol {
+    @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var artistLabel: UILabel!
     @IBOutlet weak var coverImageView: UIImageView!
     
+    private var timer: Timer?
+    
     let musicPlayer = MPMusicPlayerController.applicationMusicPlayer
+    private var shuffleMode = MPMusicPlayerController.systemMusicPlayer.shuffleMode
     
     var currentSong: Song?
     var delegate: MusicMiniControlViewControllerDelegate?
-    
     
     // MARK: - View lifecycle
     
@@ -62,7 +65,6 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
         else {
             self.coverImageView.image = UIImage(named: "placeholder_artwork")
         }
-        self.setPlayButton(self.musicPlayer.playbackState == .playing)
     }
     
     @objc private func playSong(_ notification: Notification) {
@@ -72,8 +74,8 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
             let item: MPMediaItem = SongQuery.getItem(songId: song.songId)
             let collection = MPMediaItemCollection(items: [item])
             self.musicPlayer.setQueue(with: collection)
-            self.musicPlayer.play()
             self.setMusicControl(item)
+            self.play()
         }
     }
     
@@ -82,31 +84,24 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
             let items: [MPMediaItem] = songs.map { return SongQuery.getItem(songId: $0.songId) }
             let collection = MPMediaItemCollection(items: items)
             self.musicPlayer.setQueue(with: collection)
-            self.musicPlayer.shuffleMode = .off
+            self.shuffleMode = .off
             self.musicPlayer.skipToBeginning()
             let item = collection.items[self.musicPlayer.indexOfNowPlayingItem]
             self.setMusicControl(item)
-            self.play()
+            play()
         }
     }
     
     @objc private func shffleSong(_ notification: Notification) {
-        self.musicPlayer.shuffleMode = .albums
+        stop()
+        self.shuffleMode = .albums
         self.musicPlayer.skipToNextItem()
         print("self.musicPlayer.indexOfNowPlayingItem = \(self.musicPlayer.indexOfNowPlayingItem)")
+        musicPlayer.shuffleMode = shuffleMode
+        
+        play()
         if let item = self.musicPlayer.nowPlayingItem {
             self.setMusicControl(item)
-        }
-    }
-    
-    private func setPlayButton(_ isPlaying: Bool) {
-        if isPlaying {
-            self.play()
-            self.playButton.setImage(#imageLiteral(resourceName: "MPPause"), for: .normal)
-        }
-        else {
-            self.pause()
-            self.playButton.setImage(#imageLiteral(resourceName: "MPPlay"), for: .normal)
         }
     }
     
@@ -130,17 +125,36 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
     }
     
     @IBAction func onPlayButton(_ sender: UIButton) {
-        self.setPlayButton(self.musicPlayer.playbackState == .playing)
+        let isPlaying: Bool = self.musicPlayer.playbackState == .playing
+        self.setPlayButton(isPlaying)
+        // play or stop
+        isPlaying ? stop() : play()
+    }
+    
+    private func setPlayButton(_ isPlaying: Bool) {
+        if isPlaying {
+            self.playButton.setImage(#imageLiteral(resourceName: "MPPause"), for: .normal)
+        }
+        else {
+            self.playButton.setImage(#imageLiteral(resourceName: "MPPlay"), for: .normal)
+        }
     }
     
     // MARK: - MusicPlayerProtocol
     
     func play() {
         self.musicPlayer.play()
+        self.setPlayButton(true)
+        startTimer()
     }
     
-    func pause() {
-        self.musicPlayer.pause()
+    func stop() {
+        self.shuffleMode = self.musicPlayer.shuffleMode
+        self.musicPlayer.shuffleMode = .off
+
+        self.musicPlayer.stop()
+        self.setPlayButton(false)
+        stopTimer()
     }
     
     func backward() {
@@ -150,48 +164,37 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
     func forward() {
         self.musicPlayer.beginSeekingForward()
     }
+    
+    private func startTimer() {
+        if timer == nil {
+            timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(update(timer:)), userInfo: nil, repeats: true)
+            timer?.fire()
+        }
+    }
+    
+    @objc private func update(timer: Timer) {
+        switch self.musicPlayer.playbackState {
+        case .playing:
+            let duration = self.musicPlayer.nowPlayingItem?.value(forProperty: MPMediaItemPropertyPlaybackDuration) as! NSNumber
+//            let m = duration.intValue / 60
+//            let s = duration.intValue % 60
+//            print("m = \(m), s = \(s)")
+//            let minute_ = abs(Int((musicPlayer.currentPlaybackTime / 60.0).truncatingRemainder(dividingBy: 60.0)))
+//            let second_ = abs(Int(musicPlayer.currentPlaybackTime.truncatingRemainder(dividingBy: 60.0)))
+//            
+//            let minute = minute_ > 9 ? "\(minute_)" : "0\(minute_)"
+//            let second = second_ > 9 ? "\(second_)" : "0\(second_)"
+            
+            print("음악 재생 : \(musicPlayer.currentPlaybackTime)")
+            print("duration = \(duration)")
+            self.slider.maximumValue = duration.floatValue
+            self.slider.value = Float(musicPlayer.currentPlaybackTime)
+        default:
+            return
+        }
+    }
 
-//    func setupRemoteTransportControls() {
-//        // Get the shared MPRemoteCommandCenter
-//        let commandCenter = MPRemoteCommandCenter.shared()
-//
-//        // Add handler for Play Command
-//        commandCenter.playCommand.addTarget { [unowned self] event in
-//            if self.player.rate == 0.0 {
-//                self.player.play()
-//                return .success
-//            }
-//            return .commandFailed
-//        }
-//
-//        // Add handler for Pause Command
-//        commandCenter.pauseCommand.addTarget { [unowned self] event in
-//            if self.player.rate == 1.0 {
-//                self.player.pause()
-//                return .success
-//            }
-//            return .commandFailed
-//        }
-//    }
-//
-//    func setupNowPlaying(_ song: Song) {
-//
-//        // Define Now Playing Info
-//        var nowPlayingInfo = [String: Any]()
-//        nowPlayingInfo[MPMediaItemPropertyTitle] = song.songTitle
-//
-//        if let image = UIImage(named: "lockscreen") {
-//            nowPlayingInfo[MPMediaItemPropertyArtwork] =
-//                MPMediaItemArtwork(boundsSize: image.size) { size in
-//                    return image
-//            }
-//        }
-//        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = playerItem.currentTime().seconds
-//        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = playerItem.asset.duration.seconds
-//        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = player.rate
-//
-//        // Set the metadata
-//        MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
-//    }
-//
+    private func stopTimer() {
+        self.timer?.invalidate()
+    }
 }

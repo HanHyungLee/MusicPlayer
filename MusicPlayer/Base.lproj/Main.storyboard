@@ -330,9 +330,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="82"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aYB-2c-vlq">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="2"/>
-                            </progressView>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="PWE-Hs-bsz">
+                                <rect key="frame" x="-2" y="-14" width="418" height="31"/>
+                            </slider>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="roa-H6-yMf">
                                 <rect key="frame" x="20" y="22" width="374" height="40"/>
                                 <subviews>
@@ -380,13 +380,13 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="aYB-2c-vlq" firstAttribute="leading" secondItem="COr-Wu-M1i" secondAttribute="leading" id="5UN-Ee-iTI"/>
-                            <constraint firstItem="roa-H6-yMf" firstAttribute="top" secondItem="aYB-2c-vlq" secondAttribute="bottom" constant="20" id="BLk-4v-YKq"/>
+                            <constraint firstItem="roa-H6-yMf" firstAttribute="top" secondItem="PWE-Hs-bsz" secondAttribute="bottom" constant="6" id="2t9-9g-mJ5"/>
                             <constraint firstItem="i3F-Eg-m64" firstAttribute="bottom" secondItem="roa-H6-yMf" secondAttribute="bottom" constant="20" id="Cfn-cs-Vv0"/>
-                            <constraint firstAttribute="trailing" secondItem="aYB-2c-vlq" secondAttribute="trailing" id="TGE-iZ-TiY"/>
+                            <constraint firstAttribute="trailing" secondItem="PWE-Hs-bsz" secondAttribute="trailing" id="I7S-lR-fqc"/>
+                            <constraint firstItem="PWE-Hs-bsz" firstAttribute="top" secondItem="COr-Wu-M1i" secondAttribute="top" constant="-14" id="KCg-wO-NFV"/>
                             <constraint firstItem="i3F-Eg-m64" firstAttribute="trailing" secondItem="roa-H6-yMf" secondAttribute="trailing" constant="20" id="VYg-43-6f9"/>
                             <constraint firstItem="roa-H6-yMf" firstAttribute="leading" secondItem="i3F-Eg-m64" secondAttribute="leading" constant="20" id="brx-4g-feG"/>
-                            <constraint firstItem="aYB-2c-vlq" firstAttribute="top" secondItem="COr-Wu-M1i" secondAttribute="top" id="vVa-Dm-RS6"/>
+                            <constraint firstItem="PWE-Hs-bsz" firstAttribute="leading" secondItem="COr-Wu-M1i" secondAttribute="leading" id="c31-hH-cGc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="i3F-Eg-m64"/>
                         <connections>
@@ -399,6 +399,7 @@
                         <outlet property="artistLabel" destination="ZqU-fe-r8g" id="KJM-Ae-gLz"/>
                         <outlet property="coverImageView" destination="Uab-OE-JBx" id="bU5-F8-9BF"/>
                         <outlet property="playButton" destination="yFj-5l-OnD" id="1ui-8p-yP9"/>
+                        <outlet property="slider" destination="PWE-Hs-bsz" id="oaW-Wt-EQ3"/>
                         <outlet property="titleLabel" destination="tA0-wM-kgh" id="DTr-0H-wrZ"/>
                     </connections>
                 </viewController>
@@ -409,7 +410,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-596" y="615"/>
+            <point key="canvasLocation" x="-597.10144927536237" y="614.73214285714278"/>
         </scene>
         <!--Music Control View Controller-->
         <scene sceneID="nrP-6W-ur5">

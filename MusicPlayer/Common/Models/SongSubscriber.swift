@@ -7,7 +7,9 @@
 //
 
 import Foundation
+import MediaPlayer
 
 protocol SongSubscriber: class {
   var currentSong: Song? { get set }
 }
+
