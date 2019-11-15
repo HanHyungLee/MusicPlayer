@@ -131,8 +131,10 @@ extension MusicDetailViewController: UITableViewDelegate {
         let section = self.sections[indexPath.section]
         switch section {
         case .musicList(let songs):
-            let song = songs[indexPath.row]
-            NotificationCenter.default.post(name: .playSong, object: nil, userInfo: ["song": song])
+            if let album = self.album {
+                let userInfoAlbum = UserInfoAlbum(album: album, shuffleMode: .off, playIndex: indexPath.row)
+                NotificationCenter.default.post(name: .playSong, object: nil, userInfo: [UserInfoKey.album: userInfoAlbum])
+            }
         default:
             break
         }
@@ -141,14 +143,16 @@ extension MusicDetailViewController: UITableViewDelegate {
 
 extension MusicDetailViewController: AlbumControlTableViewCellDelegate {
     func tapPlay() {
-        print("앨범 순차 재생")
-        let songs = self.album?.songs ?? []
-        let userInfo: [String: Any] = ["songs": songs]
-        NotificationCenter.default.post(name: .playAlbumSequence, object: nil, userInfo: userInfo)
+        if let album = self.album {
+            let userInfoAlbum = UserInfoAlbum(album: album, shuffleMode: .off, playIndex: 0)
+            NotificationCenter.default.post(name: .playAlbumSequence, object: nil, userInfo: [UserInfoKey.album: userInfoAlbum])
+        }
     }
     
     func tapShuffle() {
-        print("앨범 랜덤 재생")
-        NotificationCenter.default.post(name: .shuffleAlbum, object: nil, userInfo: nil)
+        if let album = self.album {
+            let userInfoAlbum = UserInfoAlbum(album: album, shuffleMode: .albums, playIndex: nil)
+            NotificationCenter.default.post(name: .shuffleAlbum, object: nil, userInfo: [UserInfoKey.album: userInfoAlbum])
+        }
     }
 }

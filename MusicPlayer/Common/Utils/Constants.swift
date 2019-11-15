@@ -11,3 +11,7 @@ import UIKit
 
 let coverImageCornerRadius: CGFloat = 4.0
 let buttonCornerRadius: CGFloat = 8.0
+
+struct UserInfoKey {
+    static let album: String = "album"
+}

@@ -30,7 +30,6 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
     private var timer: Timer?
     
     let musicPlayer = MPMusicPlayerController.applicationMusicPlayer
-    private var shuffleMode = MPMusicPlayerController.systemMusicPlayer.shuffleMode
     
     var currentSong: Song?
     var delegate: MusicMiniControlViewControllerDelegate?
@@ -69,40 +68,45 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
     
     @objc private func playSong(_ notification: Notification) {
         print("notification.userInfo = \(String(describing: notification.userInfo))")
-        
-        if let song: SongProtocol = notification.userInfo?["song"] as? SongProtocol {
-            let item: MPMediaItem = SongQuery.getItem(songId: song.songId)
-            let collection = MPMediaItemCollection(items: [item])
-            self.musicPlayer.setQueue(with: collection)
-            self.setMusicControl(item)
-            self.play()
+        guard let userInfoAlbum: UserInfoAlbumSpec = notification.userInfo?[UserInfoKey.album] as? UserInfoAlbumSpec else {
+            return
         }
+        setUserInfoAlbum(userInfoAlbum)
+        play()
     }
     
     @objc private func playSequence(_ notification: Notification) {
-        if let songs: [SongProtocol] = notification.userInfo?["songs"] as? [SongProtocol] {
-            let items: [MPMediaItem] = songs.map { return SongQuery.getItem(songId: $0.songId) }
-            let collection = MPMediaItemCollection(items: items)
-            self.musicPlayer.setQueue(with: collection)
-            self.shuffleMode = .off
-            self.musicPlayer.skipToBeginning()
-            let item = collection.items[self.musicPlayer.indexOfNowPlayingItem]
-            self.setMusicControl(item)
-            play()
+        guard let userInfoAlbum: UserInfoAlbumSpec = notification.userInfo?[UserInfoKey.album] as? UserInfoAlbumSpec else {
+            return
         }
+        setUserInfoAlbum(userInfoAlbum)
+        play()
     }
     
     @objc private func shffleSong(_ notification: Notification) {
+        guard let userInfoAlbum: UserInfoAlbumSpec = notification.userInfo?[UserInfoKey.album] as? UserInfoAlbumSpec else {
+            return
+        }
         stop()
-        self.shuffleMode = .albums
         self.musicPlayer.skipToNextItem()
-        print("self.musicPlayer.indexOfNowPlayingItem = \(self.musicPlayer.indexOfNowPlayingItem)")
-        musicPlayer.shuffleMode = shuffleMode
+        setUserInfoAlbum(userInfoAlbum)
         
         play()
         if let item = self.musicPlayer.nowPlayingItem {
             self.setMusicControl(item)
         }
+    }
+    
+    private func setUserInfoAlbum(_ spec: UserInfoAlbumSpec) {
+        let items: [MPMediaItem] = spec.album.songs.map { return SongQuery.getItem(songId: $0.songId) }
+        let collection = MPMediaItemCollection(items: items)
+        self.musicPlayer.setQueue(with: collection)
+        if let index: Int = spec.playIndex {
+            let item = collection.items[index]
+            self.musicPlayer.nowPlayingItem = item
+            self.setMusicControl(item)
+        }
+        self.musicPlayer.shuffleMode = spec.shuffleMode
     }
     
     /*
@@ -149,7 +153,6 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
     }
     
     func stop() {
-        self.shuffleMode = self.musicPlayer.shuffleMode
         self.musicPlayer.shuffleMode = .off
 
         self.musicPlayer.stop()
