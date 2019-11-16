@@ -52,7 +52,8 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
         
         NotificationCenter.default.addObserver(self, selector: #selector(playSequence), name: .playAlbumSequence, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(playSong), name: .playSong, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(shffleSong), name: .shuffleAlbum, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(shuffleSong), name: .shuffleAlbum, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changePlayItem), name: Notification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
     }
     
     private func setMusicControl(_ item: MPMediaItem) {
@@ -83,7 +84,7 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
         play()
     }
     
-    @objc private func shffleSong(_ notification: Notification) {
+    @objc private func shuffleSong(_ notification: Notification) {
         guard let userInfoAlbum: UserInfoAlbumSpec = notification.userInfo?[UserInfoKey.album] as? UserInfoAlbumSpec else {
             return
         }
@@ -97,10 +98,16 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
         }
     }
     
+    @objc private func changePlayItem(_ notification: Notification) {
+        print("changePlayItem notification = \(notification)")
+        
+    }
+    
     private func setUserInfoAlbum(_ spec: UserInfoAlbumSpec) {
         let items: [MPMediaItem] = spec.album.songs.map { return SongQuery.getItem(songId: $0.songId) }
         let collection = MPMediaItemCollection(items: items)
         self.musicPlayer.setQueue(with: collection)
+        
         if let index: Int = spec.playIndex {
             let item = collection.items[index]
             self.musicPlayer.nowPlayingItem = item

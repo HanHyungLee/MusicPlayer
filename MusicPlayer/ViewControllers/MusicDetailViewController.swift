@@ -133,7 +133,7 @@ extension MusicDetailViewController: UITableViewDelegate {
         case .musicList(let songs):
             if let album = self.album {
                 let userInfoAlbum = UserInfoAlbum(album: album, shuffleMode: .off, playIndex: indexPath.row)
-                NotificationCenter.default.post(name: .playSong, object: nil, userInfo: [UserInfoKey.album: userInfoAlbum])
+                MusicService.shared.setAlbum(userInfoAlbum, playMode: .shuffle)
             }
         default:
             break
@@ -145,14 +145,14 @@ extension MusicDetailViewController: AlbumControlTableViewCellDelegate {
     func tapPlay() {
         if let album = self.album {
             let userInfoAlbum = UserInfoAlbum(album: album, shuffleMode: .off, playIndex: 0)
-            NotificationCenter.default.post(name: .playAlbumSequence, object: nil, userInfo: [UserInfoKey.album: userInfoAlbum])
+            MusicService.shared.setAlbum(userInfoAlbum, playMode: .play)
         }
     }
     
     func tapShuffle() {
         if let album = self.album {
             let userInfoAlbum = UserInfoAlbum(album: album, shuffleMode: .albums, playIndex: nil)
-            NotificationCenter.default.post(name: .shuffleAlbum, object: nil, userInfo: [UserInfoKey.album: userInfoAlbum])
+            MusicService.shared.setAlbum(userInfoAlbum, playMode: .shuffle)
         }
     }
 }

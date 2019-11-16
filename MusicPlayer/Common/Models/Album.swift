@@ -23,6 +23,7 @@ struct Song: SongProtocol {
     var title: String
     var artistName: String
     var songTitle: String
+    var artwork: UIImage? = nil
     
     static func ==(lhs: Song, rhs: Song) -> Bool {
         return lhs.songId == rhs.songId &&

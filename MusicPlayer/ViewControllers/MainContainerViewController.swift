@@ -42,6 +42,7 @@ final class MainContainerViewController: UIViewController {
 extension MainContainerViewController: MusicMiniControlViewControllerDelegate {
     func expandSong(_ song: Song?) {
         let musicControlViewController = MusicControlViewController.viewController
+        musicControlViewController.currentSong = self.miniPlayer?.currentSong
         self.present(musicControlViewController, animated: true, completion: nil)
     }
 }

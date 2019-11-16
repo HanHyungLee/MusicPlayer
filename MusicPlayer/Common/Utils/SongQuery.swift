@@ -53,12 +53,14 @@ class SongQuery {
                     else {
                     continue
                 }
+                let artwork: UIImage? = song.value(forProperty: MPMediaItemPropertyArtwork) as? UIImage
                 
                 let song: Song = Song(songId: songId,
                                       albumTitle: albumTitle,
                                       title: songTitle,
                                       artistName: artistName,
-                                      songTitle: songTitle)
+                                      songTitle: songTitle,
+                                      artwork: artwork)
                 
                 songs.append(song)
             }
