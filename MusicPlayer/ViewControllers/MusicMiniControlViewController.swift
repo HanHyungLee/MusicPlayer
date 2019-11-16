@@ -151,6 +151,12 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
         }
     }
     
+    @IBAction func changeSongTime(_ sender: UISlider) {
+        let value = sender.value
+        print("value = \(value)")
+        self.musicPlayer.currentPlaybackTime = TimeInterval(value)
+    }
+    
     // MARK: - MusicPlayerProtocol
     
     func play() {

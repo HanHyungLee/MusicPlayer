@@ -332,6 +332,10 @@
                         <subviews>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="PWE-Hs-bsz">
                                 <rect key="frame" x="-2" y="-14" width="418" height="31"/>
+                                <connections>
+                                    <action selector="changeSongTime:" destination="V0k-zw-G8n" eventType="touchUpInside" id="AOQ-8J-ktC"/>
+                                    <action selector="changeSongTime:" destination="V0k-zw-G8n" eventType="touchUpOutside" id="h3R-xq-bFP"/>
+                                </connections>
                             </slider>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="roa-H6-yMf">
                                 <rect key="frame" x="20" y="22" width="374" height="40"/>
@@ -508,6 +512,9 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1oc-lT-NES">
                                                 <rect key="frame" x="0.0" y="0.0" width="104.5" height="40"/>
                                                 <state key="normal" image="backward.fill" catalog="system"/>
+                                                <connections>
+                                                    <action selector="onBackward:" destination="t9k-UL-dJR" eventType="touchUpInside" id="aqI-Ak-NMN"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kRs-oH-pfN">
                                                 <rect key="frame" x="124.5" y="0.0" width="105" height="40"/>
@@ -515,10 +522,16 @@
                                                     <constraint firstAttribute="height" constant="40" id="PeO-Ps-3eH"/>
                                                 </constraints>
                                                 <state key="normal" image="play.fill" catalog="system"/>
+                                                <connections>
+                                                    <action selector="onPlay:" destination="t9k-UL-dJR" eventType="touchUpInside" id="BgJ-dm-BzS"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xiD-bQ-RLW">
                                                 <rect key="frame" x="249.5" y="0.0" width="104.5" height="40"/>
                                                 <state key="normal" image="forward.fill" catalog="system"/>
+                                                <connections>
+                                                    <action selector="onForward:" destination="t9k-UL-dJR" eventType="touchUpInside" id="TZp-cg-YuQ"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>

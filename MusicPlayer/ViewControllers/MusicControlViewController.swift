@@ -116,6 +116,17 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
     
     // MARK: - IBAction Function
     
+    @IBAction func onBackward(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func onPlay(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func onForward(_ sender: UIButton) {
+        
+    }
     
     
     // MARK: - MusicPlayerProtocol
