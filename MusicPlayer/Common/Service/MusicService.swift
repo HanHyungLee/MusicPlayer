@@ -45,10 +45,15 @@ final class MusicService {
     }
     
     init() {
+        setNotificationCenter()
+    }
+    
+    private func setNotificationCenter() {
         NotificationCenter.default.addObserver(self, selector: #selector(playSequence), name: .playAlbumSequence, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(playSong), name: .playSong, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(shuffleSong), name: .shuffleAlbum, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(changePlaybackState), name: Notification.Name.MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changePlayItem), name: Notification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
     }
     
     @objc private func playSong(_ notification: Notification) {
@@ -99,6 +104,11 @@ final class MusicService {
         if let item = self.musicPlayer.nowPlayingItem {
             self.setMusicControl(item)
         }
+    }
+    
+    @objc private func changePlayItem(_ notification: Notification) {
+        print("changePlayItem notification = \(notification)")
+        self.delegates.forEach({ $0.didChangeMusic(self.musicPlayer.nowPlayingItem) })
     }
     
     // MARK: - Public Function

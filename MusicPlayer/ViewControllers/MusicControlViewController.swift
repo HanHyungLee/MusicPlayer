@@ -35,7 +35,6 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
     
     deinit {
         print("\(#file), \(#line), \(#function)")
-        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewDidLoad() {
@@ -55,7 +54,6 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
         else {
             self.setMusicControl(nil)
         }
-        NotificationCenter.default.addObserver(self, selector: #selector(changePlayItem), name: Notification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
     }
     
     private func setupUI() {
@@ -80,17 +78,6 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
         let isPlaying: Bool = self.musicPlayer.playbackState == .playing
         self.setPlayButton(isPlaying)
         self.animatePlayCoverImage(isPlaying)
-    }
-    
-    @objc private func changePlayItem(_ notification: Notification) {
-        print("changePlayItem notification = \(notification)")
-        if let item: MPMediaItem = self.musicPlayer.nowPlayingItem {
-            self.setMusicControl(item)
-            self.startTimer()
-        }
-        else {
-            self.setMusicControl(nil)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -278,4 +265,13 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
         self.timer = nil
     }
     
+    func didChangeMusic(_ item: MPMediaItem?) {
+        if let item: MPMediaItem = item {
+            self.setMusicControl(item)
+            self.startTimer()
+        }
+        else {
+            self.setMusicControl(nil)
+        }
+    }
 }

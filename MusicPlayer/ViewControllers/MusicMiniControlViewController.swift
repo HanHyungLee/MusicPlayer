@@ -12,6 +12,7 @@ import MediaPlayer
 protocol MusicPlayerDelegate: NSObjectProtocol {
     func didPlay()
     func didStop()
+    func didChangeMusic(_ item: MPMediaItem?)
     func setMusicControl(_ item: MPMediaItem?)
 }
 
@@ -39,7 +40,6 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
     
     deinit {
         print("\(#file), \(#line), \(#function)")
-        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewDidLoad() {
@@ -49,8 +49,6 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
         
         let item = self.musicPlayer.nowPlayingItem
         self.setMusicControl(item)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(changePlayItem), name: Notification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
     }
     
     private func setupUI() {
@@ -70,17 +68,6 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
         }
         let isPlaying: Bool = self.musicPlayer.playbackState == .playing
         self.setPlayButton(isPlaying)
-    }
-    
-    @objc private func changePlayItem(_ notification: Notification) {
-        print("changePlayItem notification = \(notification)")
-        if let item: MPMediaItem = self.musicPlayer.nowPlayingItem {
-            self.setMusicControl(item)
-            self.startTimer()
-        }
-        else {
-            self.setMusicControl(nil)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -187,5 +174,15 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
     private func stopTimer() {
         self.timer?.invalidate()
         self.timer = nil
+    }
+    
+    func didChangeMusic(_ item: MPMediaItem?) {
+        if let item: MPMediaItem = item {
+            self.setMusicControl(item)
+            self.startTimer()
+        }
+        else {
+            self.setMusicControl(nil)
+        }
     }
 }
