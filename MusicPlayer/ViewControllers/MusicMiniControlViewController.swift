@@ -150,7 +150,7 @@ final class MusicMiniControlViewController: UIViewController, MusicPlayerDelegat
     @objc private func update(timer: Timer) {
         switch self.musicPlayer.playbackState {
         case .playing:
-            guard let duration = self.musicPlayer.nowPlayingItem?.value(forProperty: MPMediaItemPropertyPlaybackDuration) as? NSNumber {
+            guard let duration = self.musicPlayer.nowPlayingItem?.value(forProperty: MPMediaItemPropertyPlaybackDuration) as? NSNumber else {
                 return
             }
 //            print("mini musicPlayer.currentPlaybackTime : \(musicPlayer.currentPlaybackTime)")
