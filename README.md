@@ -5,8 +5,8 @@ like Apple Music
 목표 : Apple Music앱과 유사하게 만들어보기
 
 ![메인](./ScreenShots/img1.jpeg){: width="40%" height="40%"}
-[음악리스트](./ScreenShots/img2.jpeg){: width="40%" height="40%"
-[음악컨트롤](./ScreenShots/img3.jpeg){: width="40%" height="40%"
+![음악리스트](./ScreenShots/img2.jpeg){: width="40%" height="40%"}
+![음악컨트롤](./ScreenShots/img3.jpeg){: width="40%" height="40%"}
 
 ### 개발 히스토리
 
