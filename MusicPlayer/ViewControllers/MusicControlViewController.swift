@@ -20,9 +20,10 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
     @IBOutlet weak var backwardButton: UIButton!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var forwardButton: UIButton!
-    @IBOutlet weak var volumeSlider: UISlider!
+    @IBOutlet weak var volumeView: MPVolumeView!
     @IBOutlet weak var repeatButton: UIButton!
     @IBOutlet weak var shuffleButton: UIButton!
+    
     
     let musicPlayer = MusicService.shared.musicPlayer
     var currentSong: Song?
@@ -42,13 +43,16 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
         
         setupUI()
         
-        
 //        if currentSong != nil {
 //            setMusicControl(currentSong!)
 //        }
         
         if let item: MPMediaItem = self.musicPlayer.nowPlayingItem {
             self.setMusicControl(item)
+            self.startTimer()
+        }
+        else {
+            self.setMusicControl(nil)
         }
 //        NotificationCenter.default.addObserver(self, selector: #selector(changePlayItem), name: Notification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
     }
@@ -58,12 +62,14 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
         self.coverImageView.layer.cornerRadius = coverImageCornerRadius
         self.songSlider.value = 0.0
         self.songSlider.setThumbImage(#imageLiteral(resourceName: "thumb_small"), for: .normal)
+        
+        self.volumeView.setVolumeThumbImage(#imageLiteral(resourceName: "thumb_small"), for: .normal)
     }
     
-    internal func setMusicControl(_ item: MPMediaItem) {
-        self.songTitleLabel.text = item.title
-        self.artistLabel.text = item.artist
-        if let coverImage = item.artwork?.image(at: self.coverImageView.bounds.size) {
+    internal func setMusicControl(_ item: MPMediaItem?) {
+        self.songTitleLabel.text = item?.title ?? "Not Playing"
+        self.artistLabel.text = item?.artist
+        if let coverImage = item?.artwork?.image(at: self.coverImageView.bounds.size) {
             self.coverImageView.image = coverImage
         }
         else {
@@ -165,12 +171,17 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
             print("m = \(m), s = \(s)")
             let minute_ = abs(Int((musicPlayer.currentPlaybackTime / 60.0).truncatingRemainder(dividingBy: 60.0)))
             let second_ = abs(Int(musicPlayer.currentPlaybackTime.truncatingRemainder(dividingBy: 60.0)))
-
+            
             let minute = minute_ > 9 ? "\(minute_)" : "0\(minute_)"
             let second = second_ > 9 ? "\(second_)" : "0\(second_)"
             
             print("음악 재생 : \(musicPlayer.currentPlaybackTime)")
             print("duration = \(duration)")
+            self.currentTimeLabel.text = "\(minute):\(second)"
+            self.maxTimeLabel.text = "\(m):\(s)"
+            guard self.isTouchingSlider == false else {
+                return
+            }
             self.songSlider.maximumValue = duration.floatValue
             self.songSlider.value = Float(musicPlayer.currentPlaybackTime)
         default:

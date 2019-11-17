@@ -14,7 +14,7 @@ protocol MusicPlayerProtocol: class {
     func stop()
     func backward()
     func forward()
-    func setMusicControl(_ item: MPMediaItem)
+    func setMusicControl(_ item: MPMediaItem?)
 }
 
 protocol MusicMiniControlViewControllerDelegate: NSObjectProtocol {
@@ -49,9 +49,8 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
         
         setupUI()
         
-        if let item: MPMediaItem = self.musicPlayer.nowPlayingItem {
-            self.setMusicControl(item)
-        }
+        let item = self.musicPlayer.nowPlayingItem
+        self.setMusicControl(item)
         
         NotificationCenter.default.addObserver(self, selector: #selector(changePlayItem), name: Notification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
     }
@@ -62,10 +61,10 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
         self.songSlider.setThumbImage(#imageLiteral(resourceName: "thumb_small"), for: .normal)
     }
     
-    private func setMusicControl(_ item: MPMediaItem) {
-        self.titleLabel.text = item.title
-        self.artistLabel.text = item.artist
-        if let coverImage = item.artwork?.image(at: self.coverImageView.bounds.size) {
+    internal func setMusicControl(_ item: MPMediaItem?) {
+        self.titleLabel.text = item?.title ?? "Not Playing"
+        self.artistLabel.text = item?.artist
+        if let coverImage = item?.artwork?.image(at: self.coverImageView.bounds.size) {
             self.coverImageView.image = coverImage
         }
         else {
