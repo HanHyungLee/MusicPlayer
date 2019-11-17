@@ -38,31 +38,17 @@ class SongQuery {
             let artist: String = album.representativeItem?.artist ?? ""
             let artwork: UIImage? = album.representativeItem?.artwork?.image(at: CGSize(width: 300, height: 300))
             
-            for song in albumItems {
+            for item in albumItems {
                 switch category {
                 case .artist:
-                    albumTitle = song.value(forProperty: MPMediaItemPropertyArtist) as! String
+                    albumTitle = item.value(forProperty: MPMediaItemPropertyArtist) as! String
                 case .album:
-                    albumTitle = song.value(forProperty: MPMediaItemPropertyAlbumTitle) as! String
+                    albumTitle = item.value(forProperty: MPMediaItemPropertyAlbumTitle) as! String
                 }
                 
-                guard let songId: NSNumber = song.value(forProperty: MPMediaItemPropertyPersistentID) as? NSNumber,
-                    let albumTitle: String = song.value(forProperty: MPMediaItemPropertyAlbumTitle) as? String,
-                    let artistName: String = song.value(forProperty: MPMediaItemPropertyArtist) as? String,
-                    let songTitle: String =  song.value(forProperty: MPMediaItemPropertyTitle) as? String
-                    else {
-                    continue
+                if let song = SongQuery.getSong(item: item) {
+                    songs.append(song)
                 }
-                let artwork: UIImage? = song.value(forProperty: MPMediaItemPropertyArtwork) as? UIImage
-                
-                let song: Song = Song(songId: songId,
-                                      albumTitle: albumTitle,
-                                      title: songTitle,
-                                      artistName: artistName,
-                                      songTitle: songTitle,
-                                      artwork: artwork)
-                
-                songs.append(song)
             }
             
             let album = Album(albumTitle: albumTitle,
@@ -76,6 +62,26 @@ class SongQuery {
         return albums
     }
     
+    private static func getSong(item: MPMediaItem) -> Song? {
+        
+        guard let songId: NSNumber = item.value(forProperty: MPMediaItemPropertyPersistentID) as? NSNumber,
+            let albumTitle: String = item.value(forProperty: MPMediaItemPropertyAlbumTitle) as? String,
+            let artistName: String = item.value(forProperty: MPMediaItemPropertyArtist) as? String,
+            let songTitle: String =  item.value(forProperty: MPMediaItemPropertyTitle) as? String
+            else {
+            return nil
+        }
+        let artwork: UIImage? = item.value(forProperty: MPMediaItemPropertyArtwork) as? UIImage
+        
+        let song: Song = Song(songId: songId,
+                              albumTitle: albumTitle,
+                              title: songTitle,
+                              artistName: artistName,
+                              songTitle: songTitle,
+                              artwork: artwork)
+        return song
+    }
+    
     /// MPMediaItem 찾기
     static func getItem(songId: NSNumber) -> MPMediaItem {
         let property: MPMediaPropertyPredicate = MPMediaPropertyPredicate(value: songId, forProperty: MPMediaItemPropertyPersistentID)
@@ -86,5 +92,10 @@ class SongQuery {
         let items: [MPMediaItem] = query.items! as [MPMediaItem]
         
         return items[items.count - 1]
+    }
+    
+    /// MPMediaItem -> Song 객체 변환
+    static func changeMediaItemToSong(_ item: MPMediaItem) -> Song? {
+        return SongQuery.getSong(item: item)
     }
 }

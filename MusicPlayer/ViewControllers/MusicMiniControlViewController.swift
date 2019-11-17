@@ -17,10 +17,10 @@ protocol MusicPlayerDelegate: NSObjectProtocol {
 }
 
 protocol MusicMiniControlViewControllerDelegate: NSObjectProtocol {
-    func expandSong(_ song: Song?)
+    func expandSong()
 }
 
-final class MusicMiniControlViewController: UIViewController, SongSubscriber, MusicPlayerDelegate {
+final class MusicMiniControlViewController: UIViewController, MusicPlayerDelegate {
     @IBOutlet weak var songSlider: UISlider!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
@@ -30,9 +30,6 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
     private var timer: Timer?
     private var isTouchingSlider: Bool = false
     
-//    let musicPlayer = MPMusicPlayerController.applicationMusicPlayer
-    
-    var currentSong: Song?
     weak var delegate: MusicMiniControlViewControllerDelegate?
     let musicPlayer = MusicService.shared.musicPlayer
     
@@ -94,10 +91,7 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
     // MARK: - IBAction Function
     
     @IBAction func tapGesture(_ sender: Any) {
-//        guard let song = currentSong else {
-//            return
-//        }
-        self.delegate?.expandSong(currentSong)
+        self.delegate?.expandSong()
     }
     
     @IBAction func onPlayButton(_ sender: UIButton) {

@@ -33,9 +33,11 @@ extension MusicService {
 final class MusicService {
     static let shared = MusicService()
     
-    private var userInfoAlbum: UserInfoAlbumSpec?
-    
     let musicPlayer = MPMusicPlayerController.applicationMusicPlayer
+    var currentSong: Song?
+    weak var songDelegate: CurrentSongDelegate?
+    
+    private var userInfoAlbum: UserInfoAlbumSpec?
     private var delegates: [MusicPlayerDelegate] = []
     
     // MARK: - View lifecycle
@@ -108,6 +110,11 @@ final class MusicService {
     
     @objc private func changePlayItem(_ notification: Notification) {
         print("changePlayItem notification = \(notification)")
+        if let item = self.musicPlayer.nowPlayingItem {
+            let song = SongQuery.changeMediaItemToSong(item)
+            self.currentSong = song
+            self.songDelegate?.setCurrentSong(song)
+        }
         self.delegates.forEach({ $0.didChangeMusic(self.musicPlayer.nowPlayingItem) })
     }
     

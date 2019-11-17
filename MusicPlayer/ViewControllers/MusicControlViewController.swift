@@ -9,7 +9,7 @@
 import UIKit
 import MediaPlayer
 
-final class MusicControlViewController: UIViewController, SongSubscriber, MusicPlayerDelegate {
+final class MusicControlViewController: UIViewController, MusicPlayerDelegate {
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var coverImageView: UIImageView!
     @IBOutlet weak var songTitleLabel: UILabel!
@@ -24,9 +24,7 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
     @IBOutlet weak var repeatButton: UIButton!
     @IBOutlet weak var shuffleButton: UIButton!
     
-    
     let musicPlayer = MusicService.shared.musicPlayer
-    var currentSong: Song?
     
     private var timer: Timer?
     private var isTouchingSlider: Bool = false

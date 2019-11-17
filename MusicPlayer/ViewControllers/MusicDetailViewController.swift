@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol CurrentSongDelegate: NSObjectProtocol {
+    func setCurrentSong(_ song: Song?)
+}
+
 extension MusicDetailViewController {
     enum Section {
         case albumInfo(_ albumTitle: String, artist: String, artwork: UIImage?)
@@ -46,17 +50,33 @@ final class MusicDetailViewController: UIViewController {
         }
     }
     
+    private var currentSong: Song? = MusicService.shared.currentSong {
+        didSet {
+            if let section = self.sections.firstIndex(where: { section -> Bool in
+                switch section {
+                case .musicList(_):
+                    return true
+                default:
+                    return false
+                }
+            }) {
+                let indexSet = IndexSet(integer: section)
+                self.tableView.reloadSections(indexSet, with: .none)
+            }
+        }
+    }
+    
     
     // MARK: - View lifecycle
     
     deinit {
         print("\(#file), \(#line), \(#function)")
+        MusicService.shared.songDelegate = nil
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+        MusicService.shared.songDelegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -109,7 +129,13 @@ extension MusicDetailViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "AlbumMusicTableViewCell", for: indexPath) as! AlbumMusicTableViewCell
             if let song: Song = songs[indexPath.row] as? Song {
                 cell.initCell(song.songTitle)
-                cell.state = .stopped
+                if let currentSong: Song = self.currentSong,
+                    currentSong == song {
+                    cell.state = .playing
+                }
+                else {
+                    cell.state = .stopped
+                }
             }
             return cell
         }
@@ -156,5 +182,11 @@ extension MusicDetailViewController: AlbumControlTableViewCellDelegate {
             let userInfoAlbum = UserInfoAlbum(album: album, shuffleMode: .albums, playIndex: nil)
             MusicService.shared.setAlbum(userInfoAlbum, playMode: .shuffle)
         }
+    }
+}
+
+extension MusicDetailViewController: CurrentSongDelegate {
+    func setCurrentSong(_ song: Song?) {
+        self.currentSong = song
     }
 }

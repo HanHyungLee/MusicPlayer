@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F14F77B5237AE73100925316 /* SongSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14F77B4237AE73100925316 /* SongSubscriber.swift */; };
 		F1BB54AE237C2FF7009A5BF4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BB54AD237C2FF7009A5BF4 /* Constants.swift */; };
 		F1BB54B0237C3749009A5BF4 /* MusicMiniControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BB54AF237C3749009A5BF4 /* MusicMiniControlViewController.swift */; };
 		F1BB54B2237C3859009A5BF4 /* MainContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1BB54B1237C3859009A5BF4 /* MainContainerViewController.swift */; };
@@ -34,7 +33,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		F14F77B4237AE73100925316 /* SongSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongSubscriber.swift; sourceTree = "<group>"; };
 		F1BB54AD237C2FF7009A5BF4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F1BB54AF237C3749009A5BF4 /* MusicMiniControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicMiniControlViewController.swift; sourceTree = "<group>"; };
 		F1BB54B1237C3859009A5BF4 /* MainContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContainerViewController.swift; sourceTree = "<group>"; };
@@ -159,7 +157,6 @@
 			isa = PBXGroup;
 			children = (
 				F1FE30402377A50400F6EA35 /* Album.swift */,
-				F14F77B4237AE73100925316 /* SongSubscriber.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -276,7 +273,6 @@
 				F1D7313823813F30008BF119 /* ESTMusicIndicatorContentView.swift in Sources */,
 				F1D7313923813F30008BF119 /* ESTMusicIndicatorView.swift in Sources */,
 				F1FE303C23779E7900F6EA35 /* MusicListViewController.swift in Sources */,
-				F14F77B5237AE73100925316 /* SongSubscriber.swift in Sources */,
 				F1FE30532378329400F6EA35 /* AlbumInfoTableViewCell.swift in Sources */,
 				F1FE305123782B2E00F6EA35 /* MusicDetailViewController.swift in Sources */,
 				F1BB54B4237C3FC9009A5BF4 /* NotificationExtension.swift in Sources */,

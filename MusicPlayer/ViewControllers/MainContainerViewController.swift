@@ -40,9 +40,8 @@ final class MainContainerViewController: UIViewController {
 
 // MARK: - MusicMiniControlViewControllerDelegate
 extension MainContainerViewController: MusicMiniControlViewControllerDelegate {
-    func expandSong(_ song: Song?) {
+    func expandSong() {
         let musicControlViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "MusicControlViewController") as! MusicControlViewController
-        musicControlViewController.currentSong = self.miniPlayer?.currentSong
         self.present(musicControlViewController, animated: true, completion: nil)
     }
 }
