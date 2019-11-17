@@ -65,6 +65,7 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
         self.songSlider.setThumbImage(#imageLiteral(resourceName: "thumb_small"), for: .normal)
         
         self.volumeView.setVolumeThumbImage(#imageLiteral(resourceName: "thumb_small"), for: .normal)
+//        self.volumeView.showsRouteButton = false
     }
     
     internal func setMusicControl(_ item: MPMediaItem?) {
@@ -78,6 +79,7 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
         }
         let isPlaying: Bool = self.musicPlayer.playbackState == .playing
         self.setPlayButton(isPlaying)
+        self.animatePlayCoverImage(isPlaying)
     }
     
     @objc private func changePlayItem(_ notification: Notification) {
@@ -114,14 +116,14 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
     
     @IBAction func onPlay(_ sender: UIButton) {
         let isPlaying: Bool = self.musicPlayer.playbackState == .playing
-//        self.setPlayButton(isPlaying)
         // play or stop
         isPlaying ? MusicService.shared.stop() : MusicService.shared.play()
+        // isPlaying 반대로 넣는다.
+        self.animatePlayCoverImage(!isPlaying)
     }
     
-    private func setPlayButton(_ isPlaying: Bool) {
+    private func animatePlayCoverImage(_ isPlaying: Bool) {
         if isPlaying {
-            self.playButton.setImage(SymbolName.pause_fill.getImage(.big), for: .normal)
             UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseIn, animations: {
                 self.coverImageView.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
             }, completion: { _ in
@@ -131,10 +133,18 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
             })
         }
         else {
-            self.playButton.setImage(SymbolName.play_fill.getImage(.big), for: .normal)
             UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseOut, animations: {
                 self.coverImageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
             }, completion: nil)
+        }
+    }
+    
+    private func setPlayButton(_ isPlaying: Bool) {
+        if isPlaying {
+            self.playButton.setImage(SymbolName.pause_fill.getImage(.big), for: .normal)
+        }
+        else {
+            self.playButton.setImage(SymbolName.play_fill.getImage(.big), for: .normal)
         }
     }
     
@@ -163,10 +173,35 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
     
     @IBAction func onRepeat(_ sender: UIButton) {
         self.repeatButton.isSelected = !self.repeatButton.isSelected
+        
+        if self.repeatButton.isSelected {
+            self.musicPlayer.repeatMode = .one
+        }
+        else {
+            self.musicPlayer.repeatMode = .all
+        }
+    }
+    
+    private func setRepeatButton(_ state: MPMusicRepeatMode) {
+        switch state {
+        case .one:
+            self.repeatButton.isSelected = true
+        default:
+            self.repeatButton.isSelected = false
+        }
     }
     
     @IBAction func onShuffle(_ sender: UIButton) {
+        self.shuffleButton.isSelected = !self.shuffleButton.isSelected
         
+        if self.shuffleButton.isSelected {
+            self.musicPlayer.shuffleMode = .albums
+            self.shuffleButton.alpha = 1.0
+        }
+        else {
+            self.musicPlayer.repeatMode = .none
+            self.shuffleButton.alpha = 0.5
+        }
     }
     
     // MARK: - MusicPlayerDelegate
@@ -244,4 +279,3 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
     }
     
 }
-

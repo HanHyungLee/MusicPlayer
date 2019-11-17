@@ -109,6 +109,7 @@ extension MusicDetailViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "AlbumMusicTableViewCell", for: indexPath) as! AlbumMusicTableViewCell
             if let song: Song = songs[indexPath.row] as? Song {
                 cell.initCell(song.songTitle)
+                cell.state = .stopped
             }
             return cell
         }
@@ -130,7 +131,7 @@ extension MusicDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let section = self.sections[indexPath.section]
         switch section {
-        case .musicList(let songs):
+        case .musicList(_):
             if let album = self.album {
                 let userInfoAlbum = UserInfoAlbum(album: album, shuffleMode: .off, playIndex: indexPath.row)
                 MusicService.shared.setAlbum(userInfoAlbum, playMode: .shuffle)

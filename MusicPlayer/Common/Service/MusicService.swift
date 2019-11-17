@@ -48,7 +48,7 @@ final class MusicService {
         NotificationCenter.default.addObserver(self, selector: #selector(playSequence), name: .playAlbumSequence, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(playSong), name: .playSong, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(shuffleSong), name: .shuffleAlbum, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(changePlaybackState), name: Notification.Name.MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changePlaybackState), name: Notification.Name.MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
     }
     
     @objc private func playSong(_ notification: Notification) {

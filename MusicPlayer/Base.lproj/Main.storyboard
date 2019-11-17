@@ -481,10 +481,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zDV-Qz-YqR">
-                                        <rect key="frame" x="0.0" y="469" width="354" height="125"/>
+                                        <rect key="frame" x="0.0" y="469" width="354" height="125.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ent-AD-fwE">
-                                                <rect key="frame" x="0.0" y="0.0" width="354" height="125"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="354" height="125.5"/>
                                                 <subviews>
                                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="HrN-9W-DdX">
                                                         <rect key="frame" x="-2" y="0.0" width="358" height="31"/>
@@ -525,7 +525,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Btq-iC-aLD">
-                                        <rect key="frame" x="0.0" y="624" width="354" height="40"/>
+                                        <rect key="frame" x="0.0" y="624.5" width="354" height="40"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1oc-lT-NES">
                                                 <rect key="frame" x="0.0" y="0.0" width="104.5" height="40"/>
@@ -560,7 +560,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="hhr-Dp-L8F">
-                                        <rect key="frame" x="0.0" y="694" width="354" height="20"/>
+                                        <rect key="frame" x="0.0" y="694.5" width="354" height="20"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speaker.1.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="CiC-HI-2Df">
                                                 <rect key="frame" x="0.0" y="1" width="20" height="17.5"/>
@@ -583,10 +583,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="2om-nn-lAf">
-                                        <rect key="frame" x="0.0" y="744" width="354" height="23"/>
+                                        <rect key="frame" x="0.0" y="744.5" width="354" height="22.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XWa-NB-eH0">
-                                                <rect key="frame" x="0.0" y="0.0" width="167" height="23"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="167" height="22.5"/>
                                                 <state key="normal" image="repeat" catalog="system">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" scale="default"/>
                                                 </state>
@@ -596,7 +596,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JA4-NI-uX5">
-                                                <rect key="frame" x="187" y="0.0" width="167" height="23"/>
+                                                <rect key="frame" x="187" y="0.0" width="167" height="22.5"/>
                                                 <state key="normal" image="shuffle" catalog="system">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" scale="default"/>
                                                 </state>
