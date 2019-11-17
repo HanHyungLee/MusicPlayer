@@ -68,7 +68,7 @@ final class MusicListViewController: UIViewController {
         switch status {
         case .authorized:
             let albums = self.songQuery.get(category: .album)
-            print("albums = \(albums)")
+//            print("albums = \(albums)")
             self.albums = albums
         case .denied, .restricted:
             throw MediaError.error(status)
@@ -86,7 +86,7 @@ final class MusicListViewController: UIViewController {
             switch newStatus {
             case .authorized:
                 let albums = self.songQuery.get(category: .album)
-                print("albums = \(albums)")
+//                print("albums = \(albums)")
                 self.albums = albums
             case .denied, .restricted, .notDetermined:
                 throw MediaError.error(status)
@@ -126,8 +126,6 @@ extension MusicListViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension MusicListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("indexPath = \(indexPath)")
-        
         let album: Album = self.albums[indexPath.row]
         self.performSegue(withIdentifier: "showAlbum", sender: album)
     }

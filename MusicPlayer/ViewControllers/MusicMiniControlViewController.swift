@@ -122,7 +122,6 @@ final class MusicMiniControlViewController: UIViewController, MusicPlayerDelegat
     
     @IBAction func changeSongTime(_ sender: UISlider) {
         let value = sender.value
-        print("value = \(value)")
         guard self.musicPlayer.nowPlayingItem != nil else {
             return
         }
@@ -151,9 +150,11 @@ final class MusicMiniControlViewController: UIViewController, MusicPlayerDelegat
     @objc private func update(timer: Timer) {
         switch self.musicPlayer.playbackState {
         case .playing:
-            let duration = self.musicPlayer.nowPlayingItem?.value(forProperty: MPMediaItemPropertyPlaybackDuration) as! NSNumber
-            print("mini musicPlayer.currentPlaybackTime : \(musicPlayer.currentPlaybackTime)")
-            print("mini duration = \(duration)")
+            guard let duration = self.musicPlayer.nowPlayingItem?.value(forProperty: MPMediaItemPropertyPlaybackDuration) as? NSNumber {
+                return
+            }
+//            print("mini musicPlayer.currentPlaybackTime : \(musicPlayer.currentPlaybackTime)")
+//            print("mini duration = \(duration)")
             
             guard self.isTouchingSlider == false else {
                 return

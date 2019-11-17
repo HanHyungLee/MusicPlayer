@@ -59,7 +59,6 @@ final class MusicService {
     }
     
     @objc private func playSong(_ notification: Notification) {
-        print("notification.userInfo = \(String(describing: notification.userInfo))")
         guard let userInfoAlbum: UserInfoAlbumSpec = notification.userInfo?[UserInfoKey.album] as? UserInfoAlbumSpec else {
             return
         }
@@ -109,7 +108,6 @@ final class MusicService {
     }
     
     @objc private func changePlayItem(_ notification: Notification) {
-        print("changePlayItem notification = \(notification)")
         if let item = self.musicPlayer.nowPlayingItem {
             let song = SongQuery.changeMediaItemToSong(item)
             self.currentSong = song

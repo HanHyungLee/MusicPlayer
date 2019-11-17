@@ -17,8 +17,6 @@ final class MainContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("self.children = \(self.children)")
-        
     }
     
     

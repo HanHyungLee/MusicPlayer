@@ -15,7 +15,6 @@ final class MusicNavigationViewController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("뮤직 네비!")
     }
     
     override func viewWillAppear(_ animated: Bool) {

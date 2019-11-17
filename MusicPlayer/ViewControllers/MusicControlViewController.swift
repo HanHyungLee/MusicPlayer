@@ -149,7 +149,6 @@ final class MusicControlViewController: UIViewController, MusicPlayerDelegate {
     
     @IBAction func changeSongTime(_ sender: UISlider) {
         let value = sender.value
-        print("value = \(value)")
         guard self.musicPlayer.nowPlayingItem != nil else {
             return
         }
@@ -251,8 +250,8 @@ final class MusicControlViewController: UIViewController, MusicPlayerDelegate {
         guard self.isTouchingSlider == false else {
             return
         }
-        print("musicPlayer.currentPlaybackTime : \(musicPlayer.currentPlaybackTime)")
-        print("duration = \(duration)")
+//        print("musicPlayer.currentPlaybackTime : \(musicPlayer.currentPlaybackTime)")
+//        print("duration = \(duration)")
         
         self.songSlider.maximumValue = duration.floatValue
         self.songSlider.value = Float(musicPlayer.currentPlaybackTime)
