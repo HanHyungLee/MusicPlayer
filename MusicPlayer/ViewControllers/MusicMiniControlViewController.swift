@@ -9,11 +9,12 @@
 import UIKit
 import MediaPlayer
 
-protocol MusicPlayerProtocol {
+protocol MusicPlayerProtocol: class {
     func play()
     func stop()
     func backward()
     func forward()
+    func setMusicControl(_ item: MPMediaItem)
 }
 
 protocol MusicMiniControlViewControllerDelegate: NSObjectProtocol {
@@ -21,18 +22,20 @@ protocol MusicMiniControlViewControllerDelegate: NSObjectProtocol {
 }
 
 final class MusicMiniControlViewController: UIViewController, SongSubscriber, MusicPlayerProtocol {
-    @IBOutlet weak var slider: UISlider!
+    @IBOutlet weak var songSlider: UISlider!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var artistLabel: UILabel!
     @IBOutlet weak var coverImageView: UIImageView!
     
     private var timer: Timer?
+    private var isTouchingSlider: Bool = false
     
-    let musicPlayer = MPMusicPlayerController.applicationMusicPlayer
+//    let musicPlayer = MPMusicPlayerController.applicationMusicPlayer
     
     var currentSong: Song?
-    var delegate: MusicMiniControlViewControllerDelegate?
+    weak var delegate: MusicMiniControlViewControllerDelegate?
+    let musicPlayer = MusicService.shared.musicPlayer
     
     // MARK: - View lifecycle
     
@@ -44,16 +47,19 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.coverImageView.layer.cornerRadius = coverImageCornerRadius
+        setupUI()
         
         if let item: MPMediaItem = self.musicPlayer.nowPlayingItem {
             self.setMusicControl(item)
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(playSequence), name: .playAlbumSequence, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(playSong), name: .playSong, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(shuffleSong), name: .shuffleAlbum, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(changePlayItem), name: Notification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
+    }
+    
+    private func setupUI() {
+        self.coverImageView.layer.cornerRadius = coverImageCornerRadius
+        self.songSlider.value = 0.0
+        self.songSlider.setThumbImage(#imageLiteral(resourceName: "thumb_small"), for: .normal)
     }
     
     private func setMusicControl(_ item: MPMediaItem) {
@@ -67,54 +73,21 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
         }
     }
     
-    @objc private func playSong(_ notification: Notification) {
-        print("notification.userInfo = \(String(describing: notification.userInfo))")
-        guard let userInfoAlbum: UserInfoAlbumSpec = notification.userInfo?[UserInfoKey.album] as? UserInfoAlbumSpec else {
-            return
-        }
-        setUserInfoAlbum(userInfoAlbum)
-        play()
-    }
-    
-    @objc private func playSequence(_ notification: Notification) {
-        guard let userInfoAlbum: UserInfoAlbumSpec = notification.userInfo?[UserInfoKey.album] as? UserInfoAlbumSpec else {
-            return
-        }
-        setUserInfoAlbum(userInfoAlbum)
-        play()
-    }
-    
-    @objc private func shuffleSong(_ notification: Notification) {
-        guard let userInfoAlbum: UserInfoAlbumSpec = notification.userInfo?[UserInfoKey.album] as? UserInfoAlbumSpec else {
-            return
-        }
-        stop()
-        self.musicPlayer.skipToNextItem()
-        setUserInfoAlbum(userInfoAlbum)
-        
-        play()
-        if let item = self.musicPlayer.nowPlayingItem {
-            self.setMusicControl(item)
-        }
-    }
-    
     @objc private func changePlayItem(_ notification: Notification) {
         print("changePlayItem notification = \(notification)")
         
     }
     
-    private func setUserInfoAlbum(_ spec: UserInfoAlbumSpec) {
-        let items: [MPMediaItem] = spec.album.songs.map { return SongQuery.getItem(songId: $0.songId) }
-        let collection = MPMediaItemCollection(items: items)
-        self.musicPlayer.setQueue(with: collection)
-        
-        if let index: Int = spec.playIndex {
-            let item = collection.items[index]
-            self.musicPlayer.nowPlayingItem = item
-            self.setMusicControl(item)
-        }
-        self.musicPlayer.shuffleMode = spec.shuffleMode
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        MusicService.shared.setDelegate(self)
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        MusicService.shared.removeDelegate(self)
+    }
+    
     
     /*
     // MARK: - Navigation
@@ -144,16 +117,29 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
     
     private func setPlayButton(_ isPlaying: Bool) {
         if isPlaying {
-            self.playButton.setImage(#imageLiteral(resourceName: "MPPause"), for: .normal)
+            self.playButton.setImage(SymbolName.pause_fill.getImage(.big), for: .normal)
         }
         else {
-            self.playButton.setImage(#imageLiteral(resourceName: "MPPlay"), for: .normal)
+            self.playButton.setImage(SymbolName.play_fill.getImage(.big), for: .normal)
         }
+    }
+    
+    @IBAction func touchSlider(_ sender: UISlider) {
+        self.isTouchingSlider = true
+        sender.setThumbImage(nil, for: .normal)
+    }
+    
+    @IBAction func touchUpSlider(_ sender: UISlider) {
+        self.isTouchingSlider = false
+        sender.setThumbImage(#imageLiteral(resourceName: "thumb_small"), for: .normal)
     }
     
     @IBAction func changeSongTime(_ sender: UISlider) {
         let value = sender.value
         print("value = \(value)")
+        guard self.musicPlayer.nowPlayingItem != nil else {
+            return
+        }
         self.musicPlayer.currentPlaybackTime = TimeInterval(value)
     }
     
@@ -192,19 +178,14 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
         switch self.musicPlayer.playbackState {
         case .playing:
             let duration = self.musicPlayer.nowPlayingItem?.value(forProperty: MPMediaItemPropertyPlaybackDuration) as! NSNumber
-//            let m = duration.intValue / 60
-//            let s = duration.intValue % 60
-//            print("m = \(m), s = \(s)")
-//            let minute_ = abs(Int((musicPlayer.currentPlaybackTime / 60.0).truncatingRemainder(dividingBy: 60.0)))
-//            let second_ = abs(Int(musicPlayer.currentPlaybackTime.truncatingRemainder(dividingBy: 60.0)))
-//            
-//            let minute = minute_ > 9 ? "\(minute_)" : "0\(minute_)"
-//            let second = second_ > 9 ? "\(second_)" : "0\(second_)"
-            
             print("음악 재생 : \(musicPlayer.currentPlaybackTime)")
             print("duration = \(duration)")
-            self.slider.maximumValue = duration.floatValue
-            self.slider.value = Float(musicPlayer.currentPlaybackTime)
+            
+            guard self.isTouchingSlider == false else {
+                return
+            }
+            self.songSlider.maximumValue = duration.floatValue
+            self.songSlider.value = Float(musicPlayer.currentPlaybackTime)
         default:
             return
         }

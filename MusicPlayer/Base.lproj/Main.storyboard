@@ -207,24 +207,26 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="nKA-9d-vMs">
                                                     <rect key="frame" x="20" y="15" width="374" height="50"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rpg-2L-E4C">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rpg-2L-E4C">
                                                             <rect key="frame" x="0.0" y="0.0" width="177" height="50"/>
                                                             <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="Y6d-ee-UB8"/>
                                                             </constraints>
-                                                            <state key="normal" title="Play"/>
+                                                            <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                            <state key="normal" title="Play" image="play.fill" catalog="system"/>
                                                             <connections>
                                                                 <action selector="onPlayButton:" destination="5XO-bL-k4u" eventType="touchUpInside" id="mEQ-h2-lzm"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xBX-ci-uhE">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xBX-ci-uhE">
                                                             <rect key="frame" x="197" y="0.0" width="177" height="50"/>
                                                             <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="50" id="yqE-2B-1nl"/>
                                                             </constraints>
-                                                            <state key="normal" title="Shuffle"/>
+                                                            <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                            <state key="normal" title="Shuffle" image="shuffle" catalog="system"/>
                                                             <connections>
                                                                 <action selector="onShuffleButton:" destination="5XO-bL-k4u" eventType="touchUpInside" id="90r-cW-Y5E"/>
                                                             </connections>
@@ -335,6 +337,10 @@
                                 <connections>
                                     <action selector="changeSongTime:" destination="V0k-zw-G8n" eventType="touchUpInside" id="AOQ-8J-ktC"/>
                                     <action selector="changeSongTime:" destination="V0k-zw-G8n" eventType="touchUpOutside" id="h3R-xq-bFP"/>
+                                    <action selector="touchSlider:" destination="V0k-zw-G8n" eventType="touchDown" id="BwC-Xk-kxN"/>
+                                    <action selector="touchUpSlider:" destination="V0k-zw-G8n" eventType="touchDown" id="Uny-0C-f78"/>
+                                    <action selector="touchUpSlider:" destination="V0k-zw-G8n" eventType="touchUpOutside" id="epF-WM-Aga"/>
+                                    <action selector="touchUpSlider:" destination="V0k-zw-G8n" eventType="touchUpInside" id="ugP-tp-q84"/>
                                 </connections>
                             </slider>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="roa-H6-yMf">
@@ -346,7 +352,9 @@
                                             <constraint firstAttribute="width" constant="40" id="2sW-cX-9nY"/>
                                             <constraint firstAttribute="height" constant="40" id="kvI-2g-iJc"/>
                                         </constraints>
-                                        <state key="normal" image="MPPlay"/>
+                                        <state key="normal" image="play.fill" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30"/>
+                                        </state>
                                         <connections>
                                             <action selector="onPlayButton:" destination="V0k-zw-G8n" eventType="touchUpInside" id="vka-AN-Ga2"/>
                                         </connections>
@@ -403,7 +411,7 @@
                         <outlet property="artistLabel" destination="ZqU-fe-r8g" id="KJM-Ae-gLz"/>
                         <outlet property="coverImageView" destination="Uab-OE-JBx" id="bU5-F8-9BF"/>
                         <outlet property="playButton" destination="yFj-5l-OnD" id="1ui-8p-yP9"/>
-                        <outlet property="slider" destination="PWE-Hs-bsz" id="oaW-Wt-EQ3"/>
+                        <outlet property="songSlider" destination="PWE-Hs-bsz" id="eXB-F5-qE6"/>
                         <outlet property="titleLabel" destination="tA0-wM-kgh" id="DTr-0H-wrZ"/>
                     </connections>
                 </viewController>
@@ -471,13 +479,19 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zDV-Qz-YqR">
-                                        <rect key="frame" x="0.0" y="469" width="354" height="126"/>
+                                        <rect key="frame" x="0.0" y="469" width="354" height="125"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ent-AD-fwE">
-                                                <rect key="frame" x="0.0" y="0.0" width="354" height="126"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="354" height="125"/>
                                                 <subviews>
                                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="HrN-9W-DdX">
                                                         <rect key="frame" x="-2" y="0.0" width="358" height="31"/>
+                                                        <connections>
+                                                            <action selector="touchSlider:" destination="t9k-UL-dJR" eventType="touchDown" id="p0g-v6-hID"/>
+                                                            <action selector="touchUpSlider:" destination="t9k-UL-dJR" eventType="touchUpInside" id="FRV-ce-YNx"/>
+                                                            <action selector="touchUpSlider:" destination="t9k-UL-dJR" eventType="touchUpOutside" id="RaS-b9-HQ9"/>
+                                                            <action selector="touchUpSlider:" destination="t9k-UL-dJR" eventType="touchCancel" id="xoy-D3-WXO"/>
+                                                        </connections>
                                                     </slider>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-- : --" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duO-oI-LdU">
                                                         <rect key="frame" x="0.0" y="30" width="44" height="20.5"/>
@@ -507,11 +521,13 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Btq-iC-aLD">
-                                        <rect key="frame" x="0.0" y="625" width="354" height="40"/>
+                                        <rect key="frame" x="0.0" y="624" width="354" height="40"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1oc-lT-NES">
                                                 <rect key="frame" x="0.0" y="0.0" width="104.5" height="40"/>
-                                                <state key="normal" image="backward.fill" catalog="system"/>
+                                                <state key="normal" image="backward.fill" catalog="system">
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30" scale="default"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="onBackward:" destination="t9k-UL-dJR" eventType="touchUpInside" id="aqI-Ak-NMN"/>
                                                 </connections>
@@ -521,14 +537,18 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="PeO-Ps-3eH"/>
                                                 </constraints>
-                                                <state key="normal" image="play.fill" catalog="system"/>
+                                                <state key="normal" image="play.fill" catalog="system">
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="onPlay:" destination="t9k-UL-dJR" eventType="touchUpInside" id="BgJ-dm-BzS"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xiD-bQ-RLW">
                                                 <rect key="frame" x="249.5" y="0.0" width="104.5" height="40"/>
-                                                <state key="normal" image="forward.fill" catalog="system"/>
+                                                <state key="normal" image="forward.fill" catalog="system">
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30" scale="default"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="onForward:" destination="t9k-UL-dJR" eventType="touchUpInside" id="TZp-cg-YuQ"/>
                                                 </connections>
@@ -536,10 +556,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="hhr-Dp-L8F">
-                                        <rect key="frame" x="0.0" y="695" width="354" height="20"/>
+                                        <rect key="frame" x="0.0" y="694" width="354" height="20"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="volume_down" translatesAutoresizingMaskIntoConstraints="NO" id="CiC-HI-2Df">
-                                                <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speaker.1.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="CiC-HI-2Df">
+                                                <rect key="frame" x="0.0" y="1" width="20" height="17.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="20" id="5rb-Kr-Bwo"/>
                                                     <constraint firstAttribute="height" constant="20" id="dpB-8l-2H9"/>
@@ -548,8 +568,8 @@
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZW3-sS-poZ">
                                                 <rect key="frame" x="33" y="0.0" width="288" height="21"/>
                                             </slider>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="volume_up" translatesAutoresizingMaskIntoConstraints="NO" id="5Ve-VL-WkL">
-                                                <rect key="frame" x="334" y="0.0" width="20" height="20"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speaker.3.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="5Ve-VL-WkL">
+                                                <rect key="frame" x="334" y="1" width="20" height="17.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="20" id="1Ox-Cx-vYF"/>
                                                     <constraint firstAttribute="height" constant="20" id="Qa7-nH-b0g"/>
@@ -558,15 +578,19 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="2om-nn-lAf">
-                                        <rect key="frame" x="0.0" y="745" width="354" height="22"/>
+                                        <rect key="frame" x="0.0" y="744" width="354" height="23"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XWa-NB-eH0">
-                                                <rect key="frame" x="0.0" y="0.0" width="167" height="22"/>
-                                                <state key="normal" image="repeat" catalog="system"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="167" height="23"/>
+                                                <state key="normal" image="repeat" catalog="system">
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" scale="default"/>
+                                                </state>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JA4-NI-uX5">
-                                                <rect key="frame" x="187" y="0.0" width="167" height="22"/>
-                                                <state key="normal" image="shuffle" catalog="system"/>
+                                                <rect key="frame" x="187" y="0.0" width="167" height="23"/>
+                                                <state key="normal" image="shuffle" catalog="system">
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" scale="default"/>
+                                                </state>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -609,14 +633,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="MPPlay" width="44" height="44"/>
         <image name="backward.fill" catalog="system" width="64" height="38"/>
         <image name="forward.fill" catalog="system" width="64" height="38"/>
         <image name="placeholder_artwork" width="75" height="75"/>
         <image name="play.fill" catalog="system" width="58" height="64"/>
         <image name="repeat" catalog="system" width="64" height="48"/>
         <image name="shuffle" catalog="system" width="64" height="46"/>
-        <image name="volume_down" width="170.66667175292969" height="170.66667175292969"/>
-        <image name="volume_up" width="166.66667175292969" height="166.66667175292969"/>
+        <image name="speaker.1.fill" catalog="system" width="64" height="58"/>
+        <image name="speaker.3.fill" catalog="system" width="64" height="44"/>
     </resources>
 </document>

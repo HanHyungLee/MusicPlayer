@@ -10,9 +10,6 @@ import UIKit
 
 final class MusicNavigationViewController: UINavigationController {
     
-    var controlVC: MusicControlViewController?
-    
-    
     // MARK: - View lifecycle
     
     override func viewDidLoad() {

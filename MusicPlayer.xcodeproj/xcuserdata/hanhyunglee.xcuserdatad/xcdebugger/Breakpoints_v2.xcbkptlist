@@ -39,16 +39,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "01D42C97-4347-40A0-AE21-267E202B013D"
-            shouldBeEnabled = "No"
+            uuid = "E57BDD80-8D1A-415E-B06E-45133C872F39"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MusicPlayer/ViewControllers/MusicMiniControlViewController.swift"
+            filePath = "MusicPlayer/ViewControllers/TestViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "changePlayItem(_:)"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "deinit"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
