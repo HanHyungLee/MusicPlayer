@@ -46,11 +46,10 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
 //        if currentSong != nil {
 //            setMusicControl(currentSong!)
 //        }
-        print("self.musicPlayer.currentPlaybackTime = \(self.musicPlayer.currentPlaybackTime)")
-        print("self.musicPlayer.currentPlaybackRate = \(self.musicPlayer.currentPlaybackRate)")
         
         if let item: MPMediaItem = self.musicPlayer.nowPlayingItem {
             self.setMusicControl(item)
+            self.setTimeLabel(item)
             self.startTimer()
         }
         else {
@@ -123,17 +122,17 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
     private func setPlayButton(_ isPlaying: Bool) {
         if isPlaying {
             self.playButton.setImage(SymbolName.pause_fill.getImage(.big), for: .normal)
-            UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseOut, animations: {
+            UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseIn, animations: {
                 self.coverImageView.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
             }, completion: { _ in
-                UIView.animate(withDuration: 0.2, delay: 0.2, options: .curveEaseInOut, animations: {
+                UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut, animations: {
                     self.coverImageView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
                 }, completion: nil)
             })
         }
         else {
             self.playButton.setImage(SymbolName.play_fill.getImage(.big), for: .normal)
-            UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseIn, animations: {
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseOut, animations: {
                 self.coverImageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
             }, completion: nil)
         }
@@ -187,42 +186,61 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
             timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(update(timer:)), userInfo: nil, repeats: true)
             timer?.fire()
         }
+        else {
+            timer?.fire()
+        }
     }
     
     @objc private func update(timer: Timer) {
         switch self.musicPlayer.playbackState {
         case .playing:
-            let duration = self.musicPlayer.nowPlayingItem?.value(forProperty: MPMediaItemPropertyPlaybackDuration) as! NSNumber
-            
-            print("음악 재생 : \(musicPlayer.currentPlaybackTime)")
-            print("duration = \(duration)")
-            
-            let m = duration.intValue / 60
-            let s = duration.intValue % 60
-            
-            let minute_ = abs(Int((musicPlayer.currentPlaybackTime / 60.0).truncatingRemainder(dividingBy: 60.0)))
-            let second_ = abs(Int(musicPlayer.currentPlaybackTime.truncatingRemainder(dividingBy: 60.0)))
-            
-            let minute = minute_ > 9 ? "\(minute_)" : "0\(minute_)"
-            let second = second_ > 9 ? "\(second_)" : "0\(second_)"
-            
-            let maxMinute = m > 9 ? "\(m)" : "0\(m)"
-            let maxSecond = s > 9 ? "\(s)" : "0\(s)"
-            
-            self.currentTimeLabel.text = "\(minute):\(second)"
-            self.maxTimeLabel.text = "\(maxMinute):\(maxSecond)"
-            guard self.isTouchingSlider == false else {
+            guard let item = self.musicPlayer.nowPlayingItem else {
                 return
             }
-            self.songSlider.maximumValue = duration.floatValue
-            self.songSlider.value = Float(musicPlayer.currentPlaybackTime)
+            
+            self.setTimeLabel(item)
         default:
             return
         }
     }
-
+    
+    private func setTimeLabel(_ item: MPMediaItem) {
+        guard let duration = item.value(forProperty: MPMediaItemPropertyPlaybackDuration) as? NSNumber else {
+            return
+        }
+        
+        let m = duration.intValue / 60
+        let s = duration.intValue % 60
+        
+        let minute_ = abs(Int((musicPlayer.currentPlaybackTime / 60.0).truncatingRemainder(dividingBy: 60.0)))
+        let second_ = abs(Int(musicPlayer.currentPlaybackTime.truncatingRemainder(dividingBy: 60.0)))
+        
+        let minute = minute_ > 9 ? "\(minute_)" : "0\(minute_)"
+        let second = second_ > 9 ? "\(second_)" : "0\(second_)"
+        
+        let maxMinute = m > 9 ? "\(m)" : "0\(m)"
+        let maxSecond = s > 9 ? "\(s)" : "0\(s)"
+        
+        self.currentTimeLabel.text = "\(minute):\(second)"
+        self.maxTimeLabel.text = "\(maxMinute):\(maxSecond)"
+        
+        self.setTimeSlider(duration)
+    }
+    
+    private func setTimeSlider(_ duration: NSNumber) {
+        guard self.isTouchingSlider == false else {
+            return
+        }
+        print("musicPlayer.currentPlaybackTime : \(musicPlayer.currentPlaybackTime)")
+        print("duration = \(duration)")
+        
+        self.songSlider.maximumValue = duration.floatValue
+        self.songSlider.value = Float(musicPlayer.currentPlaybackTime)
+    }
+    
     private func stopTimer() {
         self.timer?.invalidate()
+        self.timer = nil
     }
     
 }

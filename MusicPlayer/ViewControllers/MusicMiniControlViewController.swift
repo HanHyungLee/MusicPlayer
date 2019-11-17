@@ -171,7 +171,7 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
         switch self.musicPlayer.playbackState {
         case .playing:
             let duration = self.musicPlayer.nowPlayingItem?.value(forProperty: MPMediaItemPropertyPlaybackDuration) as! NSNumber
-            print("미니 음악 재생 : \(musicPlayer.currentPlaybackTime)")
+            print("mini musicPlayer.currentPlaybackTime : \(musicPlayer.currentPlaybackTime)")
             print("mini duration = \(duration)")
             
             guard self.isTouchingSlider == false else {
@@ -186,5 +186,6 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
 
     private func stopTimer() {
         self.timer?.invalidate()
+        self.timer = nil
     }
 }

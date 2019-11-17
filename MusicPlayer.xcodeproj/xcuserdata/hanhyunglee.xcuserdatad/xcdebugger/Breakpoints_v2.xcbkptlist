@@ -62,8 +62,8 @@
             filePath = "MusicPlayer/ViewControllers/MusicControlViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
             landmarkName = "onPlay(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -87,16 +87,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2486040D-DD95-4E7E-BDF0-846BBAA2BDF0"
-            shouldBeEnabled = "Yes"
+            uuid = "3339E0A7-882F-4532-82DD-14BEFD339153"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MusicPlayer/ViewControllers/MusicControlViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "setPlayButton(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
