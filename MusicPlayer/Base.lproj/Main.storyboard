@@ -259,11 +259,11 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jk9-Zi-zj8">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jk9-Zi-zj8" customClass="ESTMusicIndicatorView" customModule="MusicPlayer" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="60"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="60" id="L5D-94-sZ6"/>
+                                                        <constraint firstAttribute="height" constant="40" id="L5D-94-sZ6"/>
                                                         <constraint firstAttribute="width" constant="50" id="z3E-s1-uJx"/>
                                                     </constraints>
                                                 </view>
@@ -278,6 +278,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="musicIndicatorView" destination="jk9-Zi-zj8" id="jPN-Cf-bkc"/>
                                             <outlet property="musicLabel" destination="fpA-ac-vW6" id="OSo-Ek-15e"/>
                                         </connections>
                                     </tableViewCell>

@@ -9,8 +9,14 @@
 import UIKit
 
 final class AlbumMusicTableViewCell: UITableViewCell {
-    @IBOutlet weak var playIconImageView: UIImageView!
+    @IBOutlet weak var musicIndicatorView: ESTMusicIndicatorView!
     @IBOutlet weak var musicLabel: UILabel!
+    
+    var state: ESTMusicIndicatorViewState = .stopped {
+        didSet {
+            musicIndicatorView.state = state
+        }
+    }
     
     // MARK: - View lifecycle
     

@@ -15,6 +15,8 @@
 		F1CD667323798DEC00C64687 /* MusicControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD667223798DEC00C64687 /* MusicControlViewController.swift */; };
 		F1CD66752379911E00C64687 /* MusicNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD66742379911E00C64687 /* MusicNavigationViewController.swift */; };
 		F1D7312C23802CFC008BF119 /* MusicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D7312B23802CFC008BF119 /* MusicService.swift */; };
+		F1D7313823813F30008BF119 /* ESTMusicIndicatorContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D7313623813F30008BF119 /* ESTMusicIndicatorContentView.swift */; };
+		F1D7313923813F30008BF119 /* ESTMusicIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D7313723813F30008BF119 /* ESTMusicIndicatorView.swift */; };
 		F1EF067223779D0800345F38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EF067123779D0800345F38 /* AppDelegate.swift */; };
 		F1EF067423779D0800345F38 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EF067323779D0800345F38 /* SceneDelegate.swift */; };
 		F1EF067923779D0800345F38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1EF067723779D0800345F38 /* Main.storyboard */; };
@@ -40,6 +42,8 @@
 		F1CD667223798DEC00C64687 /* MusicControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicControlViewController.swift; sourceTree = "<group>"; };
 		F1CD66742379911E00C64687 /* MusicNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicNavigationViewController.swift; sourceTree = "<group>"; };
 		F1D7312B23802CFC008BF119 /* MusicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicService.swift; sourceTree = "<group>"; };
+		F1D7313623813F30008BF119 /* ESTMusicIndicatorContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ESTMusicIndicatorContentView.swift; sourceTree = "<group>"; };
+		F1D7313723813F30008BF119 /* ESTMusicIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ESTMusicIndicatorView.swift; sourceTree = "<group>"; };
 		F1EF066E23779D0800345F38 /* MusicPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1EF067123779D0800345F38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1EF067323779D0800345F38 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +79,23 @@
 				F1D7312B23802CFC008BF119 /* MusicService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		F1D7313423813F30008BF119 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				F1D7313523813F30008BF119 /* ESTMusicIndicator */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		F1D7313523813F30008BF119 /* ESTMusicIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				F1D7313623813F30008BF119 /* ESTMusicIndicatorContentView.swift */,
+				F1D7313723813F30008BF119 /* ESTMusicIndicatorView.swift */,
+			);
+			path = ESTMusicIndicator;
 			sourceTree = "<group>";
 		};
 		F1EF066523779D0800345F38 = {
@@ -125,6 +146,7 @@
 		F1FE303D2377A4C000F6EA35 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				F1D7313423813F30008BF119 /* lib */,
 				F1D7312A23802CF1008BF119 /* Service */,
 				F1FE303E2377A4DA00F6EA35 /* Models */,
 				F1FE303F2377A4DA00F6EA35 /* Utils */,
@@ -251,6 +273,8 @@
 				F1D7312C23802CFC008BF119 /* MusicService.swift in Sources */,
 				F1FE304C2377E5FE00F6EA35 /* UIViewControllerExtension.swift in Sources */,
 				F1FE30432377A6FA00F6EA35 /* SongQuery.swift in Sources */,
+				F1D7313823813F30008BF119 /* ESTMusicIndicatorContentView.swift in Sources */,
+				F1D7313923813F30008BF119 /* ESTMusicIndicatorView.swift in Sources */,
 				F1FE303C23779E7900F6EA35 /* MusicListViewController.swift in Sources */,
 				F14F77B5237AE73100925316 /* SongSubscriber.swift in Sources */,
 				F1FE30532378329400F6EA35 /* AlbumInfoTableViewCell.swift in Sources */,

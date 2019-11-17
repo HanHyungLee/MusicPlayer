@@ -157,11 +157,11 @@ extension MusicService: MusicPlayerProtocol {
     }
     
     func backward() {
-        self.musicPlayer.skipToNextItem()
+        self.musicPlayer.skipToPreviousItem()
     }
     
     func forward() {
-        self.musicPlayer.skipToPreviousItem()
+        self.musicPlayer.skipToNextItem()
     }
     
 }
