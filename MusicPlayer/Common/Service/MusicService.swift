@@ -36,7 +36,7 @@ final class MusicService {
     private var userInfoAlbum: UserInfoAlbumSpec?
     
     let musicPlayer = MPMusicPlayerController.applicationMusicPlayer
-    private var delegates: [MusicPlayerProtocol] = []
+    private var delegates: [MusicPlayerDelegate] = []
     
     // MARK: - View lifecycle
     
@@ -95,21 +95,9 @@ final class MusicService {
         self.musicPlayer.shuffleMode = spec.shuffleMode
     }
     
-    private func play() {
-        self.delegates.forEach({ $0.play() })
-    }
-    
-    private func stop() {
-        self.delegates.forEach({ $0.stop() })
-    }
-    
-    private func setMusicControl(_ item: MPMediaItem) {
-        self.delegates.forEach({ $0.setMusicControl(item) })
-    }
-    
     // MARK: - Public Function
     
-    func setDelegate(_ delegate: MusicPlayerProtocol) {
+    func setDelegate(_ delegate: MusicPlayerDelegate) {
         let contains: Bool = self.delegates.contains(where: { $0 === delegate })
         guard !contains else {
             return
@@ -117,7 +105,7 @@ final class MusicService {
         self.delegates.append(delegate)
     }
     
-    func removeDelegate(_ delegate: MusicPlayerProtocol) {
+    func removeDelegate(_ delegate: MusicPlayerDelegate) {
         if let index = self.delegates.firstIndex(where: { $0 === delegate }) {
             self.delegates.remove(at: index)
         }
@@ -135,4 +123,39 @@ final class MusicService {
             NotificationCenter.default.post(name: .shuffleAlbum, object: nil, userInfo: [UserInfoKey.album: album])
         }
     }
+}
+
+protocol MusicPlayerProtocol: class {
+    func play()
+    func stop()
+    func backward()
+    func forward()
+}
+
+extension MusicService: MusicPlayerProtocol {
+    
+    func play() {
+        self.musicPlayer.play()
+        self.delegates.forEach({ $0.didPlay() })
+    }
+    
+    func stop() {
+        self.musicPlayer.shuffleMode = .off
+        
+        self.musicPlayer.stop()
+        self.delegates.forEach({ $0.didStop() })
+    }
+    
+    private func setMusicControl(_ item: MPMediaItem) {
+        self.delegates.forEach({ $0.setMusicControl(item) })
+    }
+    
+    func backward() {
+        self.musicPlayer.skipToNextItem()
+    }
+    
+    func forward() {
+        self.musicPlayer.skipToPreviousItem()
+    }
+    
 }

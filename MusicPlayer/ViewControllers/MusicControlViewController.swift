@@ -9,7 +9,7 @@
 import UIKit
 import MediaPlayer
 
-final class MusicControlViewController: UIViewController, SongSubscriber, MusicPlayerProtocol {
+final class MusicControlViewController: UIViewController, SongSubscriber, MusicPlayerDelegate {
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var coverImageView: UIImageView!
     @IBOutlet weak var songTitleLabel: UILabel!
@@ -35,7 +35,7 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
     
     deinit {
         print("\(#file), \(#line), \(#function)")
-//        NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewDidLoad() {
@@ -54,7 +54,7 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
         else {
             self.setMusicControl(nil)
         }
-//        NotificationCenter.default.addObserver(self, selector: #selector(changePlayItem), name: Notification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changePlayItem), name: Notification.Name.MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
     }
     
     private func setupUI() {
@@ -77,6 +77,17 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
         }
     }
     
+    @objc private func changePlayItem(_ notification: Notification) {
+        print("changePlayItem notification = \(notification)")
+        if let item: MPMediaItem = self.musicPlayer.nowPlayingItem {
+            self.setMusicControl(item)
+            self.startTimer()
+        }
+        else {
+            self.setMusicControl(nil)
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         MusicService.shared.setDelegate(self)
@@ -87,19 +98,35 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
         MusicService.shared.removeDelegate(self)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        stopTimer()
+    }
+    
     // MARK: - IBAction Function
     
     @IBAction func onBackward(_ sender: UIButton) {
-        
+        MusicService.shared.backward()
     }
     
     @IBAction func onPlay(_ sender: UIButton) {
-        self.playButton.isSelected = !self.playButton.isSelected
-        self.setPlayButton(self.playButton.isSelected)
+        let isPlaying: Bool = self.musicPlayer.playbackState == .playing
+        self.setPlayButton(isPlaying)
+        // play or stop
+        isPlaying ? MusicService.shared.stop() : MusicService.shared.play()
+    }
+    
+    private func setPlayButton(_ isPlaying: Bool) {
+        if isPlaying {
+            self.playButton.setImage(SymbolName.pause_fill.getImage(.big), for: .normal)
+        }
+        else {
+            self.playButton.setImage(SymbolName.play_fill.getImage(.big), for: .normal)
+        }
     }
     
     @IBAction func onForward(_ sender: UIButton) {
-        
+        MusicService.shared.forward()
     }
     
     @IBAction func touchSlider(_ sender: UISlider) {
@@ -121,37 +148,16 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
         self.musicPlayer.currentPlaybackTime = TimeInterval(value)
     }
     
-    // MARK: - MusicPlayerProtocol
+    // MARK: - MusicPlayerDelegate
     
-    func play() {
-        self.musicPlayer.play()
+    func didPlay() {
         self.setPlayButton(true)
         startTimer()
     }
     
-    func stop() {
-        self.musicPlayer.shuffleMode = .off
-
-        self.musicPlayer.stop()
+    func didStop() {
         self.setPlayButton(false)
         stopTimer()
-    }
-    
-    private func setPlayButton(_ isPlaying: Bool) {
-        if isPlaying {
-            self.playButton.setImage(SymbolName.pause_fill.getImage(.big), for: .normal)
-        }
-        else {
-            self.playButton.setImage(SymbolName.play_fill.getImage(.big), for: .normal)
-        }
-    }
-    
-    func backward() {
-        self.musicPlayer.beginSeekingBackward()
-    }
-    
-    func forward() {
-        self.musicPlayer.beginSeekingForward()
     }
     
     private func startTimer() {
@@ -166,19 +172,23 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
         case .playing:
             let duration = self.musicPlayer.nowPlayingItem?.value(forProperty: MPMediaItemPropertyPlaybackDuration) as! NSNumber
             
+            print("음악 재생 : \(musicPlayer.currentPlaybackTime)")
+            print("duration = \(duration)")
+            
             let m = duration.intValue / 60
             let s = duration.intValue % 60
-            print("m = \(m), s = \(s)")
+            
             let minute_ = abs(Int((musicPlayer.currentPlaybackTime / 60.0).truncatingRemainder(dividingBy: 60.0)))
             let second_ = abs(Int(musicPlayer.currentPlaybackTime.truncatingRemainder(dividingBy: 60.0)))
             
             let minute = minute_ > 9 ? "\(minute_)" : "0\(minute_)"
             let second = second_ > 9 ? "\(second_)" : "0\(second_)"
             
-            print("음악 재생 : \(musicPlayer.currentPlaybackTime)")
-            print("duration = \(duration)")
+            let maxMinute = m > 9 ? "\(m)" : "0\(m)"
+            let maxSecond = s > 9 ? "\(s)" : "0\(s)"
+            
             self.currentTimeLabel.text = "\(minute):\(second)"
-            self.maxTimeLabel.text = "\(m):\(s)"
+            self.maxTimeLabel.text = "\(maxMinute):\(maxSecond)"
             guard self.isTouchingSlider == false else {
                 return
             }

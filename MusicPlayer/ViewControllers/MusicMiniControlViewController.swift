@@ -9,11 +9,9 @@
 import UIKit
 import MediaPlayer
 
-protocol MusicPlayerProtocol: class {
-    func play()
-    func stop()
-    func backward()
-    func forward()
+protocol MusicPlayerDelegate: NSObjectProtocol {
+    func didPlay()
+    func didStop()
     func setMusicControl(_ item: MPMediaItem?)
 }
 
@@ -21,7 +19,7 @@ protocol MusicMiniControlViewControllerDelegate: NSObjectProtocol {
     func expandSong(_ song: Song?)
 }
 
-final class MusicMiniControlViewController: UIViewController, SongSubscriber, MusicPlayerProtocol {
+final class MusicMiniControlViewController: UIViewController, SongSubscriber, MusicPlayerDelegate {
     @IBOutlet weak var songSlider: UISlider!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
@@ -74,7 +72,13 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
     
     @objc private func changePlayItem(_ notification: Notification) {
         print("changePlayItem notification = \(notification)")
-        
+        if let item: MPMediaItem = self.musicPlayer.nowPlayingItem {
+            self.setMusicControl(item)
+            self.startTimer()
+        }
+        else {
+            self.setMusicControl(nil)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,7 +115,7 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
         let isPlaying: Bool = self.musicPlayer.playbackState == .playing
         self.setPlayButton(isPlaying)
         // play or stop
-        isPlaying ? stop() : play()
+        isPlaying ? MusicService.shared.stop() : MusicService.shared.play()
     }
     
     private func setPlayButton(_ isPlaying: Bool) {
@@ -142,28 +146,16 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
         self.musicPlayer.currentPlaybackTime = TimeInterval(value)
     }
     
-    // MARK: - MusicPlayerProtocol
+    // MARK: - MusicPlayerDelegate
     
-    func play() {
-        self.musicPlayer.play()
+    func didPlay() {
         self.setPlayButton(true)
         startTimer()
     }
     
-    func stop() {
-        self.musicPlayer.shuffleMode = .off
-
-        self.musicPlayer.stop()
+    func didStop() {
         self.setPlayButton(false)
         stopTimer()
-    }
-    
-    func backward() {
-        self.musicPlayer.beginSeekingBackward()
-    }
-    
-    func forward() {
-        self.musicPlayer.beginSeekingForward()
     }
     
     private func startTimer() {
@@ -177,8 +169,8 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
         switch self.musicPlayer.playbackState {
         case .playing:
             let duration = self.musicPlayer.nowPlayingItem?.value(forProperty: MPMediaItemPropertyPlaybackDuration) as! NSNumber
-            print("음악 재생 : \(musicPlayer.currentPlaybackTime)")
-            print("duration = \(duration)")
+            print("미니 음악 재생 : \(musicPlayer.currentPlaybackTime)")
+            print("mini duration = \(duration)")
             
             guard self.isTouchingSlider == false else {
                 return
