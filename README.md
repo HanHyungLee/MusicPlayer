@@ -4,7 +4,7 @@ like Apple Music
 작성자 : 이한형
 목표 : Apple Music앱과 유사하게 만들어보기
 
-![메인](./Screenshots/img1.png)![음악리스트](./Screenshots/img2.png)![음악컨트롤](./Screenshots/img3.png)
+![메인](./ScreenShots/img1.jpeg)![음악리스트](./ScreenShots/img2.jpeg)![음악컨트롤](./ScreenShots/img3.jpeg)
 
 ### 개발 히스토리
 
