@@ -46,6 +46,8 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
 //        if currentSong != nil {
 //            setMusicControl(currentSong!)
 //        }
+        print("self.musicPlayer.currentPlaybackTime = \(self.musicPlayer.currentPlaybackTime)")
+        print("self.musicPlayer.currentPlaybackRate = \(self.musicPlayer.currentPlaybackRate)")
         
         if let item: MPMediaItem = self.musicPlayer.nowPlayingItem {
             self.setMusicControl(item)
@@ -113,7 +115,7 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
     
     @IBAction func onPlay(_ sender: UIButton) {
         let isPlaying: Bool = self.musicPlayer.playbackState == .playing
-        self.setPlayButton(isPlaying)
+//        self.setPlayButton(isPlaying)
         // play or stop
         isPlaying ? MusicService.shared.stop() : MusicService.shared.play()
     }
@@ -121,9 +123,19 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
     private func setPlayButton(_ isPlaying: Bool) {
         if isPlaying {
             self.playButton.setImage(SymbolName.pause_fill.getImage(.big), for: .normal)
+            UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseOut, animations: {
+                self.coverImageView.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+            }, completion: { _ in
+                UIView.animate(withDuration: 0.2, delay: 0.2, options: .curveEaseInOut, animations: {
+                    self.coverImageView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                }, completion: nil)
+            })
         }
         else {
             self.playButton.setImage(SymbolName.play_fill.getImage(.big), for: .normal)
+            UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseIn, animations: {
+                self.coverImageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+            }, completion: nil)
         }
     }
     
@@ -148,6 +160,14 @@ final class MusicControlViewController: UIViewController, SongSubscriber, MusicP
             return
         }
         self.musicPlayer.currentPlaybackTime = TimeInterval(value)
+    }
+    
+    @IBAction func onRepeat(_ sender: UIButton) {
+        self.repeatButton.isSelected = !self.repeatButton.isSelected
+    }
+    
+    @IBAction func onShuffle(_ sender: UIButton) {
+        
     }
     
     // MARK: - MusicPlayerDelegate

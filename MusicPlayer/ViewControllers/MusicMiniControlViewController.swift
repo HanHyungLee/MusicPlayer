@@ -68,6 +68,8 @@ final class MusicMiniControlViewController: UIViewController, SongSubscriber, Mu
         else {
             self.coverImageView.image = UIImage(named: "placeholder_artwork")
         }
+        let isPlaying: Bool = self.musicPlayer.playbackState == .playing
+        self.setPlayButton(isPlaying)
     }
     
     @objc private func changePlayItem(_ notification: Notification) {

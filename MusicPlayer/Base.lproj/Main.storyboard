@@ -487,6 +487,8 @@
                                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="HrN-9W-DdX">
                                                         <rect key="frame" x="-2" y="0.0" width="358" height="31"/>
                                                         <connections>
+                                                            <action selector="changeSongTime:" destination="t9k-UL-dJR" eventType="touchUpInside" id="oob-dV-aSA"/>
+                                                            <action selector="changeSongTime:" destination="t9k-UL-dJR" eventType="touchUpOutside" id="uE4-ha-XpH"/>
                                                             <action selector="touchSlider:" destination="t9k-UL-dJR" eventType="touchDown" id="p0g-v6-hID"/>
                                                             <action selector="touchUpSlider:" destination="t9k-UL-dJR" eventType="touchUpInside" id="FRV-ce-YNx"/>
                                                             <action selector="touchUpSlider:" destination="t9k-UL-dJR" eventType="touchUpOutside" id="RaS-b9-HQ9"/>
@@ -586,12 +588,19 @@
                                                 <state key="normal" image="repeat" catalog="system">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" scale="default"/>
                                                 </state>
+                                                <state key="selected" image="repeat.1" catalog="system"/>
+                                                <connections>
+                                                    <action selector="onRepeat:" destination="t9k-UL-dJR" eventType="touchUpInside" id="4tB-q3-h6D"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JA4-NI-uX5">
                                                 <rect key="frame" x="187" y="0.0" width="167" height="23"/>
                                                 <state key="normal" image="shuffle" catalog="system">
                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20" scale="default"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="onShuffle:" destination="t9k-UL-dJR" eventType="touchUpInside" id="HJw-is-ygh"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -639,6 +648,7 @@
         <image name="placeholder_artwork" width="75" height="75"/>
         <image name="play.fill" catalog="system" width="58" height="64"/>
         <image name="repeat" catalog="system" width="64" height="48"/>
+        <image name="repeat.1" catalog="system" width="64" height="48"/>
         <image name="shuffle" catalog="system" width="64" height="46"/>
         <image name="speaker.1.fill" catalog="system" width="64" height="58"/>
         <image name="speaker.3.fill" catalog="system" width="64" height="44"/>
