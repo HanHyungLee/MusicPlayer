@@ -53,19 +53,11 @@ final class MusicDetailViewController: UIViewController {
     
     private var currentSong: Song? = MusicService.shared.currentSong {
         didSet {
-            if let section = self.sections.firstIndex(where: { section -> Bool in
-                switch section {
-                case .musicList(_):
-                    return true
-                default:
-                    return false
-                }
-            }) {
-                let indexSet = IndexSet(integer: section)
-                self.tableView.reloadSections(indexSet, with: .none)
-            }
+            self.reloadMusicListSection()
         }
     }
+    
+    private var prevPlayState = MusicService.shared.musicPlayer.playbackState
     
     
     // MARK: - View lifecycle
@@ -197,8 +189,24 @@ extension MusicDetailViewController: CurrentSongDelegate {
     }
     
     func didChangePlayState() {
-        if self.currentSong != nil {
-            self.tableView.reloadData()
+        let currentPlayState = MusicService.shared.musicPlayer.playbackState
+        if self.prevPlayState != currentPlayState {
+            self.prevPlayState = currentPlayState
+            self.reloadMusicListSection()
+        }
+    }
+    
+    private func reloadMusicListSection() {
+        if let section = self.sections.firstIndex(where: { section -> Bool in
+            switch section {
+            case .musicList(_):
+                return true
+            default:
+                return false
+            }
+        }) {
+            let indexSet = IndexSet(integer: section)
+            self.tableView.reloadSections(indexSet, with: .none)
         }
     }
 }

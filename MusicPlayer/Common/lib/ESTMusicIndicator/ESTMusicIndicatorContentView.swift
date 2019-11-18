@@ -74,7 +74,7 @@ class ESTMusicIndicatorContentView: UIView {
         let layer: CALayer = CALayer()
         layer.anchorPoint = CGPoint(x: 0.0, y: 1.0) // At the bottom-left corner
         layer.position = CGPoint(x: xOffset, y: kBarMaxPeakHeight) // In superview's coordinate
-        layer.bounds = CGRect(x: 0.0, y: 0.0, width: kBarWidth, height: (CGFloat(layerIndex) * kBarMaxPeakHeight/CGFloat(kBarCount))) // In its own coordinate }
+        layer.bounds = CGRect(x: 0.0, y: 0.0, width: kBarWidth, height: kBarMinPeakHeight/*(CGFloat(layerIndex) * kBarMaxPeakHeight/CGFloat(kBarCount))*/) // In its own coordinate }
         return layer
     }
     
