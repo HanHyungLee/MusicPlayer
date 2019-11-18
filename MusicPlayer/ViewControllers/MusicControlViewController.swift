@@ -73,7 +73,7 @@ final class MusicControlViewController: UIViewController, MusicPlayerDelegate {
         else {
             self.coverImageView.image = UIImage(named: "placeholder_artwork")
         }
-        let isPlaying: Bool = self.musicPlayer.playbackState == .playing
+        let isPlaying: Bool = MusicService.shared.isMusicPlaying
         self.setPlayButton(isPlaying)
         self.animatePlayCoverImage(isPlaying)
     }
@@ -100,7 +100,7 @@ final class MusicControlViewController: UIViewController, MusicPlayerDelegate {
     }
     
     @IBAction func onPlay(_ sender: UIButton) {
-        let isPlaying: Bool = self.musicPlayer.playbackState == .playing
+        let isPlaying: Bool = MusicService.shared.isMusicPlaying
         // play or stop
         isPlaying ? MusicService.shared.stop() : MusicService.shared.play()
         // isPlaying 반대로 넣는다.

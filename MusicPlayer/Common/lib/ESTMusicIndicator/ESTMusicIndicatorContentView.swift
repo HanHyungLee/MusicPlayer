@@ -27,7 +27,7 @@ import UIKit
 
 class ESTMusicIndicatorContentView: UIView {
     
-    private let kBarCount = 3
+    private let kBarCount = 4
     private let kBarWidth:CGFloat = 3.0
     private let kBarIdleHeight:CGFloat = 3.0
     private let kHorizontalBarSpacing:CGFloat = 2.0 // Measured on iPad 2 (non-Retina)

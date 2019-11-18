@@ -34,6 +34,10 @@ final class MusicService {
     static let shared = MusicService()
     
     let musicPlayer = MPMusicPlayerController.applicationMusicPlayer
+    var isMusicPlaying: Bool {
+        return self.musicPlayer.playbackState == .playing
+    }
+    
     var currentSong: Song?
     weak var songDelegate: CurrentSongDelegate?
     
@@ -105,6 +109,7 @@ final class MusicService {
         if let item = self.musicPlayer.nowPlayingItem {
             self.setMusicControl(item)
         }
+        self.songDelegate?.didChangePlayState()
     }
     
     @objc private func changePlayItem(_ notification: Notification) {

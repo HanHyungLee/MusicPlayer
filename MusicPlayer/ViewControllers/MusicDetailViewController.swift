@@ -9,6 +9,7 @@
 import UIKit
 
 protocol CurrentSongDelegate: NSObjectProtocol {
+    func didChangePlayState()
     func setCurrentSong(_ song: Song?)
 }
 
@@ -131,7 +132,12 @@ extension MusicDetailViewController: UITableViewDataSource {
                 cell.initCell(song.songTitle)
                 if let currentSong: Song = self.currentSong,
                     currentSong == song {
-                    cell.state = .playing
+                    if MusicService.shared.isMusicPlaying {
+                        cell.state = .playing
+                    }
+                    else {
+                        cell.state = .paused
+                    }
                 }
                 else {
                     cell.state = .stopped
@@ -188,5 +194,11 @@ extension MusicDetailViewController: AlbumControlTableViewCellDelegate {
 extension MusicDetailViewController: CurrentSongDelegate {
     func setCurrentSong(_ song: Song?) {
         self.currentSong = song
+    }
+    
+    func didChangePlayState() {
+        if self.currentSong != nil {
+            self.tableView.reloadData()
+        }
     }
 }

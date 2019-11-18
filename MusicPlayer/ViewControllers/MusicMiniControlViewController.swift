@@ -63,7 +63,7 @@ final class MusicMiniControlViewController: UIViewController, MusicPlayerDelegat
         else {
             self.coverImageView.image = UIImage(named: "placeholder_artwork")
         }
-        let isPlaying: Bool = self.musicPlayer.playbackState == .playing
+        let isPlaying: Bool = MusicService.shared.isMusicPlaying
         self.setPlayButton(isPlaying)
     }
     
@@ -95,7 +95,7 @@ final class MusicMiniControlViewController: UIViewController, MusicPlayerDelegat
     }
     
     @IBAction func onPlayButton(_ sender: UIButton) {
-        let isPlaying: Bool = self.musicPlayer.playbackState == .playing
+        let isPlaying: Bool = MusicService.shared.isMusicPlaying
         self.setPlayButton(isPlaying)
         // play or stop
         isPlaying ? MusicService.shared.stop() : MusicService.shared.play()
